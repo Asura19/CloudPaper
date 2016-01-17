@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  CPMainViewController.h
 //  CloudPaper
 //
 //  Created by Phoenix on 16/1/17.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
+@interface CPMainViewController : UIViewController
 
 @end
-

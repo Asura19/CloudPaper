@@ -7,23 +7,27 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D0EEAB531C4B88C60073F28A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EEAB521C4B88C60073F28A /* main.m */; };
-		D0EEAB561C4B88C60073F28A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EEAB551C4B88C60073F28A /* AppDelegate.m */; };
-		D0EEAB591C4B88C60073F28A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EEAB581C4B88C60073F28A /* ViewController.m */; };
-		D0EEAB5E1C4B88C60073F28A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0EEAB5D1C4B88C60073F28A /* Assets.xcassets */; };
-		D0EEAB691C4B89750073F28A /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0EEAB681C4B89750073F28A /* Launch Screen.storyboard */; };
+		D0507A031C4BEFF9008D1907 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D05079FF1C4BEFF9008D1907 /* Assets.xcassets */; };
+		D0507A051C4BEFF9008D1907 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D0507A011C4BEFF9008D1907 /* main.m */; };
+		D0507A2B1C4BF057008D1907 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D0507A2A1C4BF057008D1907 /* AppDelegate.m */; };
+		D0507A2E1C4BF1C3008D1907 /* CPMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0507A2D1C4BF1C3008D1907 /* CPMainViewController.m */; };
+		D088C53B1C4BF650001000C8 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D088C53A1C4BF650001000C8 /* Launch Screen.storyboard */; };
+		D088C53D1C4BF952001000C8 /* Resource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D088C53C1C4BF952001000C8 /* Resource.bundle */; };
+		D088C5491C4BFF1B001000C8 /* cloud_paper_launch.png in Resources */ = {isa = PBXBuildFile; fileRef = D088C5481C4BFF1B001000C8 /* cloud_paper_launch.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D05079FF1C4BEFF9008D1907 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D0507A001C4BEFF9008D1907 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D0507A011C4BEFF9008D1907 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		D0507A291C4BF057008D1907 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = "Supporting Files/AppDelegate.h"; sourceTree = "<group>"; };
+		D0507A2A1C4BF057008D1907 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = "Supporting Files/AppDelegate.m"; sourceTree = "<group>"; };
+		D0507A2C1C4BF1C3008D1907 /* CPMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPMainViewController.h; sourceTree = "<group>"; };
+		D0507A2D1C4BF1C3008D1907 /* CPMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPMainViewController.m; sourceTree = "<group>"; };
+		D088C53A1C4BF650001000C8 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		D088C53C1C4BF952001000C8 /* Resource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Resource.bundle; sourceTree = "<group>"; };
+		D088C5481C4BFF1B001000C8 /* cloud_paper_launch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cloud_paper_launch.png; sourceTree = "<group>"; };
 		D0EEAB4E1C4B88C60073F28A /* CloudPaper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CloudPaper.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		D0EEAB521C4B88C60073F28A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		D0EEAB541C4B88C60073F28A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		D0EEAB551C4B88C60073F28A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		D0EEAB571C4B88C60073F28A /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		D0EEAB581C4B88C60073F28A /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		D0EEAB5D1C4B88C60073F28A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		D0EEAB621C4B88C60073F28A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D0EEAB681C4B89750073F28A /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = "Launch Screen.storyboard"; path = "../Launch Screen.storyboard"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,10 +41,43 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D05079FA1C4BEFF9008D1907 /* CloudPaper */ = {
+			isa = PBXGroup;
+			children = (
+				D05079FB1C4BEFF9008D1907 /* Controller */,
+				D0507A291C4BF057008D1907 /* AppDelegate.h */,
+				D0507A2A1C4BF057008D1907 /* AppDelegate.m */,
+				D05079FE1C4BEFF9008D1907 /* Supporting Files */,
+			);
+			path = CloudPaper;
+			sourceTree = "<group>";
+		};
+		D05079FB1C4BEFF9008D1907 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				D0507A2C1C4BF1C3008D1907 /* CPMainViewController.h */,
+				D0507A2D1C4BF1C3008D1907 /* CPMainViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		D05079FE1C4BEFF9008D1907 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D088C53C1C4BF952001000C8 /* Resource.bundle */,
+				D05079FF1C4BEFF9008D1907 /* Assets.xcassets */,
+				D088C53A1C4BF650001000C8 /* Launch Screen.storyboard */,
+				D0507A001C4BEFF9008D1907 /* Info.plist */,
+				D0507A011C4BEFF9008D1907 /* main.m */,
+				D088C5481C4BFF1B001000C8 /* cloud_paper_launch.png */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		D0EEAB451C4B88C60073F28A = {
 			isa = PBXGroup;
 			children = (
-				D0EEAB501C4B88C60073F28A /* CloudPaper */,
+				D05079FA1C4BEFF9008D1907 /* CloudPaper */,
 				D0EEAB4F1C4B88C60073F28A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -51,29 +88,6 @@
 				D0EEAB4E1C4B88C60073F28A /* CloudPaper.app */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		D0EEAB501C4B88C60073F28A /* CloudPaper */ = {
-			isa = PBXGroup;
-			children = (
-				D0EEAB541C4B88C60073F28A /* AppDelegate.h */,
-				D0EEAB551C4B88C60073F28A /* AppDelegate.m */,
-				D0EEAB571C4B88C60073F28A /* ViewController.h */,
-				D0EEAB581C4B88C60073F28A /* ViewController.m */,
-				D0EEAB5D1C4B88C60073F28A /* Assets.xcassets */,
-				D0EEAB681C4B89750073F28A /* Launch Screen.storyboard */,
-				D0EEAB621C4B88C60073F28A /* Info.plist */,
-				D0EEAB511C4B88C60073F28A /* Supporting Files */,
-			);
-			path = CloudPaper;
-			sourceTree = "<group>";
-		};
-		D0EEAB511C4B88C60073F28A /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				D0EEAB521C4B88C60073F28A /* main.m */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -134,8 +148,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D0EEAB691C4B89750073F28A /* Launch Screen.storyboard in Resources */,
-				D0EEAB5E1C4B88C60073F28A /* Assets.xcassets in Resources */,
+				D088C53D1C4BF952001000C8 /* Resource.bundle in Resources */,
+				D088C5491C4BFF1B001000C8 /* cloud_paper_launch.png in Resources */,
+				D088C53B1C4BF650001000C8 /* Launch Screen.storyboard in Resources */,
+				D0507A031C4BEFF9008D1907 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,9 +162,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D0EEAB591C4B88C60073F28A /* ViewController.m in Sources */,
-				D0EEAB561C4B88C60073F28A /* AppDelegate.m in Sources */,
-				D0EEAB531C4B88C60073F28A /* main.m in Sources */,
+				D0507A2E1C4BF1C3008D1907 /* CPMainViewController.m in Sources */,
+				D0507A051C4BEFF9008D1907 /* main.m in Sources */,
+				D0507A2B1C4BF057008D1907 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -239,7 +255,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = CloudPaper/Info.plist;
+				INFOPLIST_FILE = "CloudPaper/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cn.Phoenix.CloudPaper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -250,7 +266,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = CloudPaper/Info.plist;
+				INFOPLIST_FILE = "CloudPaper/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cn.Phoenix.CloudPaper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -276,6 +292,7 @@
 				D0EEAB671C4B88C60073F28A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
