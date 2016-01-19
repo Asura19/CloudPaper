@@ -58,7 +58,11 @@
                     updateDate:updateDate];
 }
 
-- (BOOL)Persistence {
+- (BOOL)PersistenceToCreate {
     return [[CPNoteManager sharedManager] addNote:self];
+}
+
+- (BOOL)PersistenceToUpdate {
+    return [[CPNoteManager sharedManager] updateNote:self];
 }
 @end

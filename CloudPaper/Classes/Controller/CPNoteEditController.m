@@ -180,13 +180,9 @@ CGFloat const kVerticalMargin = 10.f;
 {
     [self hideKeyboard];
     NSString *string = (NSString *)_contentTextView.text;
-    
-    if ([string isEqualToString:@" "]) {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
-    
     string = [string stringByTrimmingCharactersInSet:
               [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
     if ((string == nil || string.length == 0)) {
         [self.navigationController popViewControllerAnimated:YES];
         return;
@@ -204,7 +200,7 @@ CGFloat const kVerticalMargin = 10.f;
                                      createdDate:createDate
                                       updateDate:[NSDate date]];
     _note = note;
-    BOOL success = [note Persistence];
+    BOOL success = [note PersistenceToCreate];
     if (success) {
         _saved = YES;
         [self turnToLookingUpState];
