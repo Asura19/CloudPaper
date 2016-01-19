@@ -7,7 +7,8 @@
 //
 
 #import "AppDelegate.h"
-#import "CPMainViewController.h"
+#import "CPNoteListController.h"
+#import "CPNavigationController.h"
 
 @interface AppDelegate ()
 
@@ -18,7 +19,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    self.window.rootViewController = [[CPMainViewController alloc] init];
+    CPNoteListController *mainViewController = [[CPNoteListController alloc] init];
+    CPNavigationController *nav = [[CPNavigationController alloc] initWithRootViewController:mainViewController];
+    self.window.rootViewController = nav;
     [self.window makeKeyAndVisible];
     return YES;
 }

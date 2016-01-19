@@ -1,5 +1,5 @@
 //
-//  CPMainViewController.h
+//  CPNoteListController.h
 //  CloudPaper
 //
 //  Created by Phoenix on 16/1/17.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CPMainViewController : UIViewController
+@interface CPNoteListController : UIViewController 
 
 @end
