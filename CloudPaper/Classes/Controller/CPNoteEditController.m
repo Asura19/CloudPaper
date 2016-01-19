@@ -189,23 +189,34 @@ CGFloat const kVerticalMargin = 10.f;
     }
     
     NSDate *createDate;
-    if (_note && _note.createdDate) {
+    if (_note) {
         createDate = _note.createdDate;
+        CPNote *note = [[CPNote alloc] initWithTitle:nil
+                                             content:string
+                                         createdDate:createDate
+                                          updateDate:[NSDate date]];
+        _note = note;
+        BOOL success = [note PersistenceToUpdate];
+        if (success) {
+            _saved = YES;
+            [self turnToLookingUpState];
+        } else {
+            [ProgressHUD showError:@"SaveFail"];
+        }
     } else {
         createDate = [NSDate date];
-    }
-    
-    CPNote *note = [[CPNote alloc] initWithTitle:nil
-                                         content:string
-                                     createdDate:createDate
-                                      updateDate:[NSDate date]];
-    _note = note;
-    BOOL success = [note PersistenceToCreate];
-    if (success) {
-        _saved = YES;
-        [self turnToLookingUpState];
-    } else {
-        [ProgressHUD showError:@"SaveFail"];
+        CPNote *note = [[CPNote alloc] initWithTitle:nil
+                                             content:string
+                                         createdDate:createDate
+                                          updateDate:[NSDate date]];
+        _note = note;
+        BOOL success = [note PersistenceToCreate];
+        if (success) {
+            _saved = YES;
+            [self turnToLookingUpState];
+        } else {
+            [ProgressHUD showError:@"SaveFail"];
+        }
     }
 }
 

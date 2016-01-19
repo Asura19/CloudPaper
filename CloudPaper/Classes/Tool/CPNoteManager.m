@@ -139,7 +139,7 @@ static FMDatabaseQueue *_queue;
     [_queue inDatabase:^(FMDatabase *db) {
         NSString *noteID = note.noteID;
         NSData *data = [NSKeyedArchiver archivedDataWithRootObject:note];
-        isSuccess = [db executeUpdate:@"update t_notes set noteID = ?, note = ?", noteID, data];
+        isSuccess = [db executeUpdate:@"update t_notes set note = ? where noteID = ?", data, noteID];
     }];
     return isSuccess;
 }
