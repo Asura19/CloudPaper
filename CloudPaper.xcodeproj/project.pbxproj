@@ -41,6 +41,8 @@
 		D0B8EB191C4E6B7C003F5CBA /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B8EB121C4E6B7C003F5CBA /* FMDatabaseQueue.m */; };
 		D0B8EB1A1C4E6B7C003F5CBA /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B8EB151C4E6B7C003F5CBA /* FMResultSet.m */; };
 		D0B8EB1C1C4E6B93003F5CBA /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D0B8EB1B1C4E6B93003F5CBA /* libsqlite3.tbd */; };
+		D0B8EB201C4EAFA4003F5CBA /* CPBaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B8EB1F1C4EAFA4003F5CBA /* CPBaseNavigationController.m */; };
+		D0B8EB231C4EB0D7003F5CBA /* CPSettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B8EB221C4EB0D7003F5CBA /* CPSettingController.m */; };
 		D0DB44C11C4C02E500B8D52F /* CPNoteListController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0DB44BB1C4C02E500B8D52F /* CPNoteListController.m */; };
 		D0DB44C21C4C02E500B8D52F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D0DB44BE1C4C02E500B8D52F /* AppDelegate.m */; };
 		D0DB44C31C4C02E500B8D52F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D0DB44C01C4C02E500B8D52F /* main.m */; };
@@ -131,6 +133,10 @@
 		D0B8EB141C4E6B7C003F5CBA /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
 		D0B8EB151C4E6B7C003F5CBA /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
 		D0B8EB1B1C4E6B93003F5CBA /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		D0B8EB1E1C4EAFA4003F5CBA /* CPBaseNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPBaseNavigationController.h; sourceTree = "<group>"; };
+		D0B8EB1F1C4EAFA4003F5CBA /* CPBaseNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPBaseNavigationController.m; sourceTree = "<group>"; };
+		D0B8EB211C4EB0D7003F5CBA /* CPSettingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPSettingController.h; sourceTree = "<group>"; };
+		D0B8EB221C4EB0D7003F5CBA /* CPSettingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPSettingController.m; sourceTree = "<group>"; };
 		D0DB44BA1C4C02E500B8D52F /* CPNoteListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPNoteListController.h; sourceTree = "<group>"; };
 		D0DB44BB1C4C02E500B8D52F /* CPNoteListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPNoteListController.m; sourceTree = "<group>"; };
 		D0DB44BD1C4C02E500B8D52F /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -333,12 +339,16 @@
 		D0DB44B91C4C02E500B8D52F /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				D0B8EB1E1C4EAFA4003F5CBA /* CPBaseNavigationController.h */,
+				D0B8EB1F1C4EAFA4003F5CBA /* CPBaseNavigationController.m */,
 				D0DB450E1C4CA7F000B8D52F /* CPNavigationController.h */,
 				D0DB450F1C4CA7F000B8D52F /* CPNavigationController.m */,
 				D0DB44BA1C4C02E500B8D52F /* CPNoteListController.h */,
 				D0DB44BB1C4C02E500B8D52F /* CPNoteListController.m */,
 				D0DB45201C4D051E00B8D52F /* CPNoteEditController.h */,
 				D0DB45211C4D051E00B8D52F /* CPNoteEditController.m */,
+				D0B8EB211C4EB0D7003F5CBA /* CPSettingController.h */,
+				D0B8EB221C4EB0D7003F5CBA /* CPSettingController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -551,8 +561,10 @@
 				D0B8EAF51C4E0B08003F5CBA /* YYTextInput.m in Sources */,
 				D0B8EAFD1C4E0B08003F5CBA /* YYTextParser.m in Sources */,
 				D0B8EB001C4E0B08003F5CBA /* NSAttributedString+YYText.m in Sources */,
+				D0B8EB201C4EAFA4003F5CBA /* CPBaseNavigationController.m in Sources */,
 				D0B8EB051C4E0B08003F5CBA /* YYTextTransaction.m in Sources */,
 				D0DB451A1C4CBD6100B8D52F /* UIImage+Bundle.m in Sources */,
+				D0B8EB231C4EB0D7003F5CBA /* CPSettingController.m in Sources */,
 				D0B8EB011C4E0B08003F5CBA /* NSParagraphStyle+YYText.m in Sources */,
 				D0DB44C21C4C02E500B8D52F /* AppDelegate.m in Sources */,
 				D0DB44C31C4C02E500B8D52F /* main.m in Sources */,

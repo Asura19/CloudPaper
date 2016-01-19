@@ -7,14 +7,14 @@
 //
 
 #import "CPNoteListController.h"
-//#import "Masonry.h"
 #import "UIBarButtonItem+CP.h"
 #import "CPMacro.h"
 #import "CPNoteEditController.h"
 #import "CPNavigationController.h"
 #import "CPNoteManager.h"
 #import "CPNote.h"
-//#import "CPConstants.h"
+#import "CPBaseNavigationController.h"
+#import "CPSettingController.h"
 
 @interface CPNoteListController ()
 //@property (nonatomic, weak) UITableView *noteListView;
@@ -35,13 +35,6 @@
     self.view.backgroundColor = [UIColor whiteColor];
     
     [self setupNavigationItems];
-//    [self setupnoteListView];
-    
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(reloadTableViewData)
-//                                                 name:@"CreateNewFile"
-//                                               object:nil];
-//    
 }
 
 - (void)setupNavigationItems {
@@ -71,17 +64,10 @@
 }
 
 - (void)setting {
-    NSLog(@"--------setting");
+    CPSettingController *settingController = [[CPSettingController alloc] initWithStyle:UITableViewStyleGrouped];
+    CPBaseNavigationController *nav = [[CPBaseNavigationController alloc] initWithRootViewController:settingController];
+    [self presentViewController:nav animated:YES completion:nil];
 }
-
-//- (void)setupnoteListView {
-//    UITableView *noteListView = [[UITableView alloc] init];
-//    noteListView.frame = self.view.bounds;
-//    [self.view addSubview:noteListView];
-//    noteListView.delegate = self;
-//    noteListView.dataSource = self;
-//    
-//}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.notes.count;
@@ -94,7 +80,12 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
     }
     CPNote *note = self.notes[indexPath.row];
-    cell.textLabel.text = note.content;
+    if ([note.content length] > 40) {
+        cell.textLabel.text = [note.content substringWithRange:NSMakeRange(0, 40)];
+    } else {
+        cell.textLabel.text = note.content;
+    }
+
     return cell;
 }
 
@@ -104,12 +95,6 @@
     CPNoteEditController *noteEditController = [[CPNoteEditController alloc] initWithNote:note];
     [self.navigationController pushViewController:noteEditController animated:YES];
 }
-
-//- (void)reloadTableViewData {
-//    _notes = [[CPNoteManager sharedManager] readAllNotes];
-//    [self.tableView reloadData];
-//    
-//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
