@@ -101,8 +101,9 @@ CGFloat const kVerticalMargin = 10.f;
         [self setupAttributedText:_note.content];
         [self turnToLookingUpState];
     } else {
-        [self setupAttributedText:@" "];
+        [self setupAttributedText:@""];
         [self turnToEditingState];
+        [_contentTextView becomeFirstResponder];
     }
     [self.view addSubview:_contentTextView];
 }
@@ -118,9 +119,10 @@ CGFloat const kVerticalMargin = 10.f;
 - (void)setupAttributedText:(NSString *)string {
     NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:string];
     text.yy_font = [UIFont fontWithName:@"Times New Roman" size:17];
-    text.yy_lineSpacing = 1;
+//    text.yy_lineSpacing = 1;
     text.yy_firstLineHeadIndent = 0;
     _contentTextView.attributedText = text;
+    [_contentTextView setFont:[UIFont fontWithName:@"Times New Roman" size:17]];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -185,6 +187,7 @@ CGFloat const kVerticalMargin = 10.f;
     string = [string stringByTrimmingCharactersInSet:
               [NSCharacterSet whitespaceAndNewlineCharacterSet]];
     if ((string == nil || string.length == 0)) {
+        [self.navigationController popViewControllerAnimated:YES];
         return;
     }
     
