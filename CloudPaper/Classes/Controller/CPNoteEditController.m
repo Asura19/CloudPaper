@@ -12,19 +12,21 @@
 #import "ProgressHUD.h"
 #import "CPMacro.h"
 //#import "CPConstants.h"
+#import "YYText.h"
+#import "UIBarButtonItem+CP.h"
 
-static const CGFloat kViewOriginY = 70;
-static const CGFloat kTextFieldHeight = 30;
-static const CGFloat kToolbarHeight = 44;
-static const CGFloat kVoiceButtonWidth = 100;
 CGFloat const kHorizontalMargin = 10.f;
 CGFloat const kVerticalMargin = 10.f;
 
-@interface CPNoteEditController ()
+@interface CPNoteEditController ()<YYTextViewDelegate>
 {
     CPNote *_note;
-    UITextView *_contentTextView;
+    YYTextView *_contentTextView;
     BOOL _isEditingContent;
+    UIBarButtonItem *_doneItem;
+    UIBarButtonItem *_addPhotoItem;
+    UIBarButtonItem *_deleteItem;
+    UIBarButtonItem *_shareItem;
 }
 @end
 
@@ -43,10 +45,9 @@ CGFloat const kVerticalMargin = 10.f;
     self.view.backgroundColor = [UIColor whiteColor];
     // 右划返回
     self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
+    [self ceateNavigationBarItem];
     [self initSuiews];
-    [self setupNavigationBar];
-//    [self setupSpeechRecognizer];
-    
+    // 监听键盘状态
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
                                                  name:UIKeyboardWillShowNotification
@@ -58,97 +59,68 @@ CGFloat const kVerticalMargin = 10.f;
                                                object:nil];
 }
 
-- (void)dealloc
+- (void)ceateNavigationBarItem
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-- (void)setupNavigationBar
-{
-    UIBarButtonItem *saveItem = [[UIBarButtonItem alloc] initWithTitle:@"保存"
-                                                                 style:UIBarButtonItemStylePlain
-                                                                target:self
-                                                                action:@selector(save)];
+    // 创建导航栏Item
+    _doneItem = [UIBarButtonItem itemWithIcon:@"btn_done"
+                              highligntedIcon:@"nothing"
+                                       target:self
+                                       action:@selector(save)];
     
-//    UIBarButtonItem *moreItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"btn_new"]
-//                                                                 style:UIBarButtonItemStylePlain
-//                                                                target:self
-//                                                                action:@selector(delete)];
-    UIBarButtonItem *moreItem = [[UIBarButtonItem alloc] initWithTitle:@"删除"
-                                                                 style:UIBarButtonItemStylePlain
-                                                                target:self
-                                                                action:@selector(delete)];
-
-    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:moreItem, saveItem, nil];
+    _addPhotoItem = [UIBarButtonItem itemWithIcon:@"btn_camera"
+                                  highligntedIcon:@"nothing"
+                                           target:self
+                                           action:@selector(addPhoto)];
+    
+    _shareItem = [UIBarButtonItem itemWithIcon:@"btn_send"
+                               highligntedIcon:@"nothing"
+                                        target:self
+                                        action:@selector(share)];
+    
+    _deleteItem = [UIBarButtonItem itemWithIcon:@"btn_delete"
+                                highligntedIcon:@"nothing"
+                                         target:self
+                                         action:@selector(delete)];
 }
-
-//- (void)setupSpeechRecognizer
-//{
-//    NSString *initString = [NSString stringWithFormat:@"%@=%@", [IFlySpeechConstant APPID], kIFlyAppID];
-//    
-//    [IFlySpeechUtility createUtility:initString];
-//    _iflyRecognizerView = [[IFlyRecognizerView alloc] initWithCenter:self.view.center];
-//    _iflyRecognizerView.delegate = self;
-//    
-//    [_iflyRecognizerView setParameter:@"iat" forKey:[IFlySpeechConstant IFLY_DOMAIN]];
-//    [_iflyRecognizerView setParameter:@"asr.pcm" forKey:[IFlySpeechConstant ASR_AUDIO_PATH]];
-//    [_iflyRecognizerView setParameter:@"plain" forKey:[IFlySpeechConstant RESULT_TYPE]];
-//}
 
 - (void)initSuiews
 {
-    CGRect frame = CGRectMake(kHorizontalMargin, kViewOriginY, self.view.frame.size.width - kHorizontalMargin * 2, kTextFieldHeight);
-    
-//    UIBarButtonItem *doneBarButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(hideKeyboard)];
-//    doneBarButton.width = ceilf(self.view.frame.size.width) / 3 - 30;
-//    
-//    UIBarButtonItem *voiceBarButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"micro_small"] style:UIBarButtonItemStylePlain target:self action:@selector(useVoiceInput)];
-//    voiceBarButton.width = ceilf(self.view.frame.size.width) / 3;
-//    
-//    UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, kToolbarHeight)];
-//    toolbar.tintColor = [UIColor systemColor];
-//    toolbar.items = [NSArray arrayWithObjects:doneBarButton, voiceBarButton, nil];
-//    
-//    frame = CGRectMake(kHorizontalMargin,
-//                       0,
-//                       self.view.frame.size.width - kHorizontalMargin * 2,
-//                       self.view.frame.size.height - kVoiceButtonWidth - kVerticalMargin * 2);
-    _contentTextView = [[UITextView alloc] initWithFrame:frame];
-    _contentTextView.backgroundColor = [UIColor grayColor];
+    CGRect frame = self.view.bounds;
+    _contentTextView = [[YYTextView alloc] initWithFrame:frame];
+
+    _contentTextView.textContainerInset = UIEdgeInsetsMake(10, 10, 10, 10);
+    _contentTextView.delegate = self;
+//    _contentTextView.backgroundColor = [UIColor grayColor];
     _contentTextView.textColor = [UIColor blackColor];
     _contentTextView.font = [UIFont systemFontOfSize:16];
     _contentTextView.autocorrectionType = UITextAutocorrectionTypeNo;
     _contentTextView.autocapitalizationType = UITextAutocapitalizationTypeNone;
     [_contentTextView setScrollEnabled:YES];
-//    UIView *superView = self.view;
-//    [_contentTextView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(superView.mas_left).offset(kHorizontalMargin);
-//        make.top.equalTo(superView.mas_top).offset(kViewOriginY);
-//        make.right.equalTo(superView.mas_right).offset(-kHorizontalMargin);
-//        if (_isEditingContent) {
-//            make.bottom.equalTo(superView.mas_bottom).offset(300);
-//        } else {
-//            make.bottom.equalTo(superView.mas_bottom);
-//        }
-//        
-//    }];
-    
+
     if (_note) {
-        _contentTextView.text = _note.content;
+        [self setupAttributedText:_note.content];
+        [self turnToLookingUpState];
+    } else {
+        [self setupAttributedText:@" "];
+        [self turnToEditingState];
     }
-//    _contentTextView.inputAccessoryView = toolbar;
     [self.view addSubview:_contentTextView];
-    
-//    _voiceButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [_voiceButton setFrame:CGRectMake((self.view.frame.size.width - kVoiceButtonWidth) / 2, self.view.frame.size.height - kVoiceButtonWidth - kVerticalMargin, kVoiceButtonWidth, kVoiceButtonWidth)];
-//    [_voiceButton setTitle:NSLocalizedString(@"VoiceInput", @"") forState:UIControlStateNormal];
-//    [_voiceButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//    _voiceButton.layer.cornerRadius = kVoiceButtonWidth / 2;
-//    _voiceButton.layer.masksToBounds = YES;
-//    [_voiceButton setBackgroundColor:[UIColor systemColor]];
-//    [_voiceButton addTarget:self action:@selector(useVoiceInput) forControlEvents:UIControlEventTouchUpInside];
-//    [_voiceButton setTintColor:[UIColor whiteColor]];
-//    [self.view addSubview:_voiceButton];
+}
+
+- (void)turnToEditingState {
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:_doneItem, _addPhotoItem, nil];
+}
+
+- (void)turnToLookingUpState {
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:_shareItem, _deleteItem, nil];
+}
+
+- (void)setupAttributedText:(NSString *)string {
+    NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:string];
+    text.yy_font = [UIFont fontWithName:@"Times New Roman" size:17];
+    text.yy_lineSpacing = 1;
+    text.yy_firstLineHeadIndent = 0;
+    _contentTextView.attributedText = text;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -161,6 +133,7 @@ CGFloat const kVerticalMargin = 10.f;
 
 - (void)keyboardWillShow:(NSNotification *)notification
 {
+    [self turnToEditingState];
     _isEditingContent = YES;
     NSDictionary *userInfo = notification.userInfo;
     [UIView animateWithDuration:[userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue]
@@ -170,9 +143,8 @@ CGFloat const kVerticalMargin = 10.f;
      {
          CGRect keyboardFrame = [[userInfo valueForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
          CGFloat keyboardHeight = keyboardFrame.size.height;
-         
          CGRect frame = _contentTextView.frame;
-         frame.size.height = self.view.frame.size.height - kViewOriginY - kTextFieldHeight - keyboardHeight - kVerticalMargin - kToolbarHeight,
+         frame.size.height = self.view.frame.size.height - keyboardHeight;
          _contentTextView.frame = frame;
      }               completion:NULL];
 }
@@ -186,10 +158,9 @@ CGFloat const kVerticalMargin = 10.f;
                         options:[userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue]
                      animations:^
      {
-         CGRect frame = _contentTextView.frame;
-         frame.size.height = self.view.frame.size.height - kViewOriginY - kTextFieldHeight - kVoiceButtonWidth - kVerticalMargin * 3;
-         _contentTextView.frame = frame;
-     }               completion:NULL];
+         
+         _contentTextView.frame = self.view.frame;
+     }               completion:nil];
 }
 
 - (void)hideKeyboard
@@ -205,27 +176,44 @@ CGFloat const kVerticalMargin = 10.f;
 - (void)save
 {
     [self hideKeyboard];
-    if ((_contentTextView.text == nil || _contentTextView.text.length == 0)) {
+    NSString *string = (NSString *)_contentTextView.text;
+    
+    if ([string isEqualToString:@" "]) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    
+    string = [string stringByTrimmingCharactersInSet:
+              [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if ((string == nil || string.length == 0)) {
         return;
     }
+    
     NSDate *createDate;
     if (_note && _note.createdDate) {
         createDate = _note.createdDate;
     } else {
         createDate = [NSDate date];
     }
+    
     CPNote *note = [[CPNote alloc] initWithTitle:nil
-                                         content:_contentTextView.text
+                                         content:string
                                      createdDate:createDate
                                       updateDate:[NSDate date]];
     _note = note;
     BOOL success = [note Persistence];
     if (success) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"CreateNewFile" object:nil userInfo:nil];
+        [self turnToLookingUpState];
     } else {
         [ProgressHUD showError:@"SaveFail"];
     }
-    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)addPhoto {
+    
+}
+
+- (void)share {
+    
 }
 
 - (void)delete {
@@ -234,7 +222,15 @@ CGFloat const kVerticalMargin = 10.f;
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)textViewDidChange:(YYTextView *)textView {
+    // 监听字数
 }
 
 @end

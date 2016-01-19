@@ -16,8 +16,8 @@
 #import "CPNote.h"
 //#import "CPConstants.h"
 
-@interface CPNoteListController ()<UITableViewDelegate, UITableViewDataSource>
-@property (nonatomic, weak) UITableView *noteListView;
+@interface CPNoteListController ()
+//@property (nonatomic, weak) UITableView *noteListView;
 @property (nonatomic, strong) NSMutableArray *notes;
 @end
 
@@ -35,13 +35,13 @@
     self.view.backgroundColor = [UIColor whiteColor];
     
     [self setupNavigationItems];
-    [self setupnoteListView];
+//    [self setupnoteListView];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(reloadTableViewData)
-                                                 name:@"CreateNewFile"
-                                               object:nil];
-    
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(reloadTableViewData)
+//                                                 name:@"CreateNewFile"
+//                                               object:nil];
+//    
 }
 
 - (void)setupNavigationItems {
@@ -74,14 +74,14 @@
     NSLog(@"--------setting");
 }
 
-- (void)setupnoteListView {
-    UITableView *noteListView = [[UITableView alloc] init];
-    noteListView.frame = self.view.bounds;
-    [self.view addSubview:noteListView];
-    noteListView.delegate = self;
-    noteListView.dataSource = self;
-    
-}
+//- (void)setupnoteListView {
+//    UITableView *noteListView = [[UITableView alloc] init];
+//    noteListView.frame = self.view.bounds;
+//    [self.view addSubview:noteListView];
+//    noteListView.delegate = self;
+//    noteListView.dataSource = self;
+//    
+//}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.notes.count;
@@ -105,11 +105,11 @@
     [self.navigationController pushViewController:noteEditController animated:YES];
 }
 
-- (void)reloadTableViewData {
-    _notes = [[CPNoteManager sharedManager] readAllNotes];
-    [self.noteListView reloadData];
-    
-}
+//- (void)reloadTableViewData {
+//    _notes = [[CPNoteManager sharedManager] readAllNotes];
+//    [self.tableView reloadData];
+//    
+//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -117,7 +117,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     _notes = [[CPNoteManager sharedManager] readAllNotes];
-    [self.noteListView reloadData];
+    [self.tableView reloadData];
 }
 
 //- (void)dealloc {
