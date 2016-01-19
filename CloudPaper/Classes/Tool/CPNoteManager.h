@@ -15,7 +15,7 @@
 
 - (NSMutableArray *)readAllNotes;
 - (CPNote *)readNoteWithID:(NSString *)noteID;
-- (BOOL)storeNote:(CPNote *)note;
+- (BOOL)addNote:(CPNote *)note;
 - (void)deleteNote:(CPNote *)note;
 + (instancetype)sharedManager;
 @end

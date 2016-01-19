@@ -35,6 +35,12 @@
 		D0B8EB071C4E0B08003F5CBA /* YYTextWeakProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B8EAEC1C4E0B08003F5CBA /* YYTextWeakProxy.m */; };
 		D0B8EB081C4E0B08003F5CBA /* YYLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B8EAEE1C4E0B08003F5CBA /* YYLabel.m */; };
 		D0B8EB091C4E0B08003F5CBA /* YYTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B8EAF11C4E0B08003F5CBA /* YYTextView.m */; };
+		D0B8EB161C4E6B7C003F5CBA /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B8EB0C1C4E6B7C003F5CBA /* FMDatabase.m */; };
+		D0B8EB171C4E6B7C003F5CBA /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B8EB0E1C4E6B7C003F5CBA /* FMDatabaseAdditions.m */; };
+		D0B8EB181C4E6B7C003F5CBA /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B8EB101C4E6B7C003F5CBA /* FMDatabasePool.m */; };
+		D0B8EB191C4E6B7C003F5CBA /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B8EB121C4E6B7C003F5CBA /* FMDatabaseQueue.m */; };
+		D0B8EB1A1C4E6B7C003F5CBA /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B8EB151C4E6B7C003F5CBA /* FMResultSet.m */; };
+		D0B8EB1C1C4E6B93003F5CBA /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D0B8EB1B1C4E6B93003F5CBA /* libsqlite3.tbd */; };
 		D0DB44C11C4C02E500B8D52F /* CPNoteListController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0DB44BB1C4C02E500B8D52F /* CPNoteListController.m */; };
 		D0DB44C21C4C02E500B8D52F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D0DB44BE1C4C02E500B8D52F /* AppDelegate.m */; };
 		D0DB44C31C4C02E500B8D52F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D0DB44C01C4C02E500B8D52F /* main.m */; };
@@ -113,6 +119,18 @@
 		D0B8EAEF1C4E0B08003F5CBA /* YYText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYText.h; sourceTree = "<group>"; };
 		D0B8EAF01C4E0B08003F5CBA /* YYTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYTextView.h; sourceTree = "<group>"; };
 		D0B8EAF11C4E0B08003F5CBA /* YYTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYTextView.m; sourceTree = "<group>"; };
+		D0B8EB0B1C4E6B7C003F5CBA /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
+		D0B8EB0C1C4E6B7C003F5CBA /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
+		D0B8EB0D1C4E6B7C003F5CBA /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
+		D0B8EB0E1C4E6B7C003F5CBA /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseAdditions.m; sourceTree = "<group>"; };
+		D0B8EB0F1C4E6B7C003F5CBA /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabasePool.h; sourceTree = "<group>"; };
+		D0B8EB101C4E6B7C003F5CBA /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabasePool.m; sourceTree = "<group>"; };
+		D0B8EB111C4E6B7C003F5CBA /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseQueue.h; sourceTree = "<group>"; };
+		D0B8EB121C4E6B7C003F5CBA /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
+		D0B8EB131C4E6B7C003F5CBA /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
+		D0B8EB141C4E6B7C003F5CBA /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
+		D0B8EB151C4E6B7C003F5CBA /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
+		D0B8EB1B1C4E6B93003F5CBA /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		D0DB44BA1C4C02E500B8D52F /* CPNoteListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPNoteListController.h; sourceTree = "<group>"; };
 		D0DB44BB1C4C02E500B8D52F /* CPNoteListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPNoteListController.m; sourceTree = "<group>"; };
 		D0DB44BD1C4C02E500B8D52F /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -167,6 +185,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0B8EB1C1C4E6B93003F5CBA /* libsqlite3.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,6 +293,32 @@
 			path = Utility;
 			sourceTree = "<group>";
 		};
+		D0B8EB0A1C4E6B7C003F5CBA /* FMDB */ = {
+			isa = PBXGroup;
+			children = (
+				D0B8EB0B1C4E6B7C003F5CBA /* FMDatabase.h */,
+				D0B8EB0C1C4E6B7C003F5CBA /* FMDatabase.m */,
+				D0B8EB0D1C4E6B7C003F5CBA /* FMDatabaseAdditions.h */,
+				D0B8EB0E1C4E6B7C003F5CBA /* FMDatabaseAdditions.m */,
+				D0B8EB0F1C4E6B7C003F5CBA /* FMDatabasePool.h */,
+				D0B8EB101C4E6B7C003F5CBA /* FMDatabasePool.m */,
+				D0B8EB111C4E6B7C003F5CBA /* FMDatabaseQueue.h */,
+				D0B8EB121C4E6B7C003F5CBA /* FMDatabaseQueue.m */,
+				D0B8EB131C4E6B7C003F5CBA /* FMDB.h */,
+				D0B8EB141C4E6B7C003F5CBA /* FMResultSet.h */,
+				D0B8EB151C4E6B7C003F5CBA /* FMResultSet.m */,
+			);
+			path = FMDB;
+			sourceTree = "<group>";
+		};
+		D0B8EB1D1C4E6BA6003F5CBA /* Framework */ = {
+			isa = PBXGroup;
+			children = (
+				D0B8EB1B1C4E6B93003F5CBA /* libsqlite3.tbd */,
+			);
+			name = Framework;
+			sourceTree = "<group>";
+		};
 		D0DB44B81C4C02E500B8D52F /* Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -314,6 +359,7 @@
 		D0DB44BF1C4C02E500B8D52F /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				D0B8EB0A1C4E6B7C003F5CBA /* FMDB */,
 				D0B8EABD1C4E0B08003F5CBA /* YYText */,
 				D0DB452D1C4D657E00B8D52F /* ProgressHUD */,
 				D0DB44EA1C4C049500B8D52F /* Masonry */,
@@ -396,6 +442,7 @@
 			isa = PBXGroup;
 			children = (
 				D05079FA1C4BEFF9008D1907 /* CloudPaper */,
+				D0B8EB1D1C4E6BA6003F5CBA /* Framework */,
 				D0EEAB4F1C4B88C60073F28A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -484,6 +531,7 @@
 				D0DB450B1C4C049500B8D52F /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				D0B8EB071C4E0B08003F5CBA /* YYTextWeakProxy.m in Sources */,
 				D0B8EB041C4E0B08003F5CBA /* YYTextAsyncLayer.m in Sources */,
+				D0B8EB161C4E6B7C003F5CBA /* FMDatabase.m in Sources */,
 				D0B8EB031C4E0B08003F5CBA /* UIView+YYText.m in Sources */,
 				D0B8EAFF1C4E0B08003F5CBA /* YYTextRunDelegate.m in Sources */,
 				D0B8EAF91C4E0B08003F5CBA /* YYTextMagnifier.m in Sources */,
@@ -496,6 +544,7 @@
 				D0DB45321C4D657E00B8D52F /* ProgressHUD.m in Sources */,
 				D0DB45041C4C049500B8D52F /* MASCompositeConstraint.m in Sources */,
 				D0DB450A1C4C049500B8D52F /* NSArray+MASAdditions.m in Sources */,
+				D0B8EB181C4E6B7C003F5CBA /* FMDatabasePool.m in Sources */,
 				D0B8EAFE1C4E0B08003F5CBA /* YYTextRubyAnnotation.m in Sources */,
 				D0B8EAFA1C4E0B08003F5CBA /* YYTextSelectionView.m in Sources */,
 				D0DB45101C4CA7F000B8D52F /* CPNavigationController.m in Sources */,
@@ -509,16 +558,19 @@
 				D0DB44C31C4C02E500B8D52F /* main.m in Sources */,
 				D0DB45261C4D10B300B8D52F /* CPNote.m in Sources */,
 				D0B8EB021C4E0B08003F5CBA /* UIPasteboard+YYText.m in Sources */,
+				D0B8EB1A1C4E6B7C003F5CBA /* FMResultSet.m in Sources */,
 				D0B8EAF21C4E0B08003F5CBA /* YYTextContainerView.m in Sources */,
 				D0B8EAF71C4E0B08003F5CBA /* YYTextLayout.m in Sources */,
 				D0B8EB061C4E0B08003F5CBA /* YYTextUtilities.m in Sources */,
 				D0DB45071C4C049500B8D52F /* MASLayoutConstraint.m in Sources */,
+				D0B8EB171C4E6B7C003F5CBA /* FMDatabaseAdditions.m in Sources */,
 				D0DB44C11C4C02E500B8D52F /* CPNoteListController.m in Sources */,
 				D0DB450D1C4C049500B8D52F /* ViewController+MASAdditions.m in Sources */,
 				D0DB45221C4D051E00B8D52F /* CPNoteEditController.m in Sources */,
 				D0DB451D1C4CBF7300B8D52F /* UIBarButtonItem+CP.m in Sources */,
 				D0DB452C1C4D51E700B8D52F /* CPNoteManager.m in Sources */,
 				D0DB450C1C4C049500B8D52F /* View+MASAdditions.m in Sources */,
+				D0B8EB191C4E6B7C003F5CBA /* FMDatabaseQueue.m in Sources */,
 				D0DB45081C4C049500B8D52F /* MASViewAttribute.m in Sources */,
 				D0B8EAF31C4E0B08003F5CBA /* YYTextDebugOption.m in Sources */,
 				D0DB45051C4C049500B8D52F /* MASConstraint.m in Sources */,

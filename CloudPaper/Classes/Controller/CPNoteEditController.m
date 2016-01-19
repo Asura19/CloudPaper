@@ -11,7 +11,6 @@
 #import "Masonry.h"
 #import "ProgressHUD.h"
 #import "CPMacro.h"
-//#import "CPConstants.h"
 #import "YYText.h"
 #import "UIBarButtonItem+CP.h"
 
@@ -22,7 +21,7 @@ CGFloat const kVerticalMargin = 10.f;
 {
     CPNote *_note;
     YYTextView *_contentTextView;
-    BOOL _isEditingContent;
+    BOOL _saved;
     UIBarButtonItem *_doneItem;
     UIBarButtonItem *_addPhotoItem;
     UIBarButtonItem *_deleteItem;
@@ -43,6 +42,7 @@ CGFloat const kVerticalMargin = 10.f;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
+    _saved = NO;
     // 右划返回
     self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
     [self ceateNavigationBarItem];
@@ -88,11 +88,10 @@ CGFloat const kVerticalMargin = 10.f;
     CGRect frame = self.view.bounds;
     _contentTextView = [[YYTextView alloc] initWithFrame:frame];
 
-    _contentTextView.textContainerInset = UIEdgeInsetsMake(10, 10, 10, 10);
+    _contentTextView.textContainerInset = UIEdgeInsetsMake(10, 12, 10, 10);
     _contentTextView.delegate = self;
 //    _contentTextView.backgroundColor = [UIColor grayColor];
     _contentTextView.textColor = [UIColor blackColor];
-    _contentTextView.font = [UIFont systemFontOfSize:16];
     _contentTextView.autocorrectionType = UITextAutocorrectionTypeNo;
     _contentTextView.autocapitalizationType = UITextAutocapitalizationTypeNone;
     [_contentTextView setScrollEnabled:YES];
@@ -118,17 +117,19 @@ CGFloat const kVerticalMargin = 10.f;
 
 - (void)setupAttributedText:(NSString *)string {
     NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:string];
-    text.yy_font = [UIFont fontWithName:@"Times New Roman" size:17];
+    text.yy_font = [UIFont fontWithName:@"Times New Roman" size:19];
 //    text.yy_lineSpacing = 1;
     text.yy_firstLineHeadIndent = 0;
     _contentTextView.attributedText = text;
-    [_contentTextView setFont:[UIFont fontWithName:@"Times New Roman" size:17]];
+    [_contentTextView setFont:[UIFont fontWithName:@"Times New Roman" size:19]];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [self save];
+    if (!_saved) {
+        [self save];
+    }
 }
 
 #pragma mark - Keyboard
@@ -136,7 +137,7 @@ CGFloat const kVerticalMargin = 10.f;
 - (void)keyboardWillShow:(NSNotification *)notification
 {
     [self turnToEditingState];
-    _isEditingContent = YES;
+//    _isEditingContent = YES;
     NSDictionary *userInfo = notification.userInfo;
     [UIView animateWithDuration:[userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue]
                           delay:0.f
@@ -153,7 +154,7 @@ CGFloat const kVerticalMargin = 10.f;
 
 - (void)keyboardWillHide:(NSNotification *)notification
 {
-    _isEditingContent = NO;
+//    _isEditingContent = NO;
     NSDictionary *userInfo = notification.userInfo;
     [UIView animateWithDuration:[userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue]
                           delay:0.f
@@ -168,7 +169,7 @@ CGFloat const kVerticalMargin = 10.f;
 - (void)hideKeyboard
 {
     if ([_contentTextView isFirstResponder]) {
-        _isEditingContent = NO;
+//        _isEditingContent = NO;
         [_contentTextView resignFirstResponder];
     }
 }
@@ -205,6 +206,7 @@ CGFloat const kVerticalMargin = 10.f;
     _note = note;
     BOOL success = [note Persistence];
     if (success) {
+        _saved = YES;
         [self turnToLookingUpState];
     } else {
         [ProgressHUD showError:@"SaveFail"];
@@ -225,6 +227,7 @@ CGFloat const kVerticalMargin = 10.f;
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+    
 }
 
 - (void)dealloc

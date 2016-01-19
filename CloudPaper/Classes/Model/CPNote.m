@@ -24,7 +24,7 @@
 {
     self = [super init];
     if (self) {
-        _noteID = [NSNumber numberWithDouble:[createdDate timeIntervalSince1970]].stringValue;
+        _noteID = [NSNumber numberWithDouble:[updatedDate timeIntervalSince1970]].stringValue;
         _title = title;
         _content = content;
         _createdDate = createdDate;
@@ -39,11 +39,12 @@
     return self;
 }
 
-- (void) encodeWithCoder:(NSCoder *)encoder {
+- (void)encodeWithCoder:(NSCoder *)encoder {
     [encoder encodeObject:_noteID forKey:kNoteIDKey];
     [encoder encodeObject:_title forKey:kTitleKey];
     [encoder encodeObject:_content forKey:kContentKey];
     [encoder encodeObject:_createdDate forKey:kCreatedDate];
+    [encoder encodeObject:_updatedDate forKey:kUpdatedDate];
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
@@ -58,6 +59,6 @@
 }
 
 - (BOOL)Persistence {
-    return [[CPNoteManager sharedManager] storeNote:self];
+    return [[CPNoteManager sharedManager] addNote:self];
 }
 @end
