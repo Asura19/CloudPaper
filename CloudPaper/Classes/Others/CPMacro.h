@@ -25,6 +25,18 @@
  */
 #define NAVIGATIONBAR_TITLE_FONT_SIZE 21
 #define NAVIGATIONBAR_TITLE_FONT [UIFont systemFontOfSize:NAVIGATIONBAR_TITLE_FONT_SIZE]
-
+/**
+ *  导航栏“设置”字体
+ */
 #define NAVIGATIONBAR_SETTING_TITLE_FONT_SIZE 19
 #define NAVIGATIONBAR_SETTING_TITLE_FONT [UIFont systemFontOfSize:19]
+/**
+ *  自定义cell参数
+ */
+#define CPNOTECELL_BORDER 8
+#define CPNOTECELL_HEIGHT 80
+/**
+ *  屏幕宽高
+ */
+#define SCREEN_WIDTH ([UIScreen mainScreen].bounds.size.width)
+#define SCREEN_HEIGHT ([UIScreen mainScreen].bounds.size.height)

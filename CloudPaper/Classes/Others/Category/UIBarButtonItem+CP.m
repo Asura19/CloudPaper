@@ -7,7 +7,7 @@
 //
 
 #import "UIBarButtonItem+CP.h"
-#import "UIImage+Bundle.h"
+#import "UIImage+Phoenix.h"
 
 @implementation UIBarButtonItem (CP)
 + (UIBarButtonItem *)itemWithIcon:(NSString *)icon

@@ -15,10 +15,14 @@
 #import "CPNote.h"
 #import "CPBaseNavigationController.h"
 #import "CPSettingController.h"
+#import "CPNoteCell.h"
+#import "UIImage+Phoenix.h"
+#import "CPGuideToCreateNoteView.h"
 
 @interface CPNoteListController ()
-//@property (nonatomic, weak) UITableView *noteListView;
+
 @property (nonatomic, strong) NSMutableArray *notes;
+@property (nonatomic, weak) CPGuideToCreateNoteView *guideView;
 @end
 
 @implementation CPNoteListController
@@ -32,8 +36,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
-    
+//    self.view.backgroundColor = CPColor(226, 226, 226);
+    self.tableView.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamedInResourceBundle:@"bg"]];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, CPNOTECELL_BORDER, 0);
+    [self setupGuideToCreateNoteView];
     [self setupNavigationItems];
 }
 
@@ -58,6 +65,15 @@
                                                                    action:@selector(setting)];
 }
 
+- (void)setupGuideToCreateNoteView {
+    CPGuideToCreateNoteView *guideView = [[CPGuideToCreateNoteView alloc] init];
+    self.guideView = guideView;
+    self.guideView.hidden = YES;
+    guideView.frame = CGRectMake(0, 200, 120, 200);
+//    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:guideView];
+    [self.tableView.backgroundView addSubview:guideView];
+}
+
 - (void)createNewNote {
     CPNoteEditController *noteEditController = [[CPNoteEditController alloc] init];
     [self.navigationController pushViewController:noteEditController animated:YES];
@@ -69,25 +85,46 @@
     [self presentViewController:nav animated:YES completion:nil];
 }
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    _notes = [[CPNoteManager sharedManager] readAllNotes];
+    
+    if (self.notes.count) {
+        self.guideView.hidden = YES;
+    } else {
+        self.guideView.hidden = NO;
+    }
+    [self.tableView reloadData];
+}
+
+#pragma mark TableView DataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.notes.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *ID = @"ID";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
-    }
+    CPNoteCell *cell = [CPNoteCell cellWithTableView:tableView];
+    
     CPNote *note = self.notes[indexPath.row];
     if ([note.content length] > 40) {
-        cell.textLabel.text = [note.content substringWithRange:NSMakeRange(0, 40)];
+        cell.noteContentLabel.text = [note.content substringWithRange:NSMakeRange(0, 40)];
     } else {
-        cell.textLabel.text = note.content;
+        cell.noteContentLabel.text = note.content;
     }
-
+    // 时间
+    NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
+    [fmt setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"]];
+    [fmt setDateFormat:@"EEE MMM dd HH:mm:ss Z yyyy年"];
+    NSString *s = [fmt stringFromDate:note.updatedDate];
+    
+    cell.timeLabel.text = s;
     return cell;
 }
+
+#pragma mark TableView Delegate method
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
@@ -96,17 +133,8 @@
     [self.navigationController pushViewController:noteEditController animated:YES];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return CPNOTECELL_HEIGHT;
 }
-
-- (void)viewWillAppear:(BOOL)animated {
-    _notes = [[CPNoteManager sharedManager] readAllNotes];
-    [self.tableView reloadData];
-}
-
-//- (void)dealloc {
-//    [[NSNotificationCenter defaultCenter] removeObserver:@"CreateNewFile"];
-//}
 
 @end

@@ -11,6 +11,7 @@
 		D088C53B1C4BF650001000C8 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D088C53A1C4BF650001000C8 /* Launch Screen.storyboard */; };
 		D088C53D1C4BF952001000C8 /* Resource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D088C53C1C4BF952001000C8 /* Resource.bundle */; };
 		D088C5491C4BFF1B001000C8 /* cloud_paper_launch.png in Resources */ = {isa = PBXBuildFile; fileRef = D088C5481C4BFF1B001000C8 /* cloud_paper_launch.png */; };
+		D0B8E63B1C4FBE01009FD3E0 /* CPGuideToCreateNoteView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B8E63A1C4FBE01009FD3E0 /* CPGuideToCreateNoteView.m */; };
 		D0B8EAF21C4E0B08003F5CBA /* YYTextContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B8EAC01C4E0B08003F5CBA /* YYTextContainerView.m */; };
 		D0B8EAF31C4E0B08003F5CBA /* YYTextDebugOption.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B8EAC21C4E0B08003F5CBA /* YYTextDebugOption.m */; };
 		D0B8EAF41C4E0B08003F5CBA /* YYTextEffectWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B8EAC41C4E0B08003F5CBA /* YYTextEffectWindow.m */; };
@@ -43,6 +44,8 @@
 		D0B8EB1C1C4E6B93003F5CBA /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D0B8EB1B1C4E6B93003F5CBA /* libsqlite3.tbd */; };
 		D0B8EB201C4EAFA4003F5CBA /* CPBaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B8EB1F1C4EAFA4003F5CBA /* CPBaseNavigationController.m */; };
 		D0B8EB231C4EB0D7003F5CBA /* CPSettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B8EB221C4EB0D7003F5CBA /* CPSettingController.m */; };
+		D0B8EB4B1C4F540A003F5CBA /* CPNoteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B8EB4A1C4F540A003F5CBA /* CPNoteCell.m */; };
+		D0B8EB4E1C4F59F6003F5CBA /* UIImage+Phoenix.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B8EB4D1C4F59F6003F5CBA /* UIImage+Phoenix.m */; };
 		D0DB44C11C4C02E500B8D52F /* CPNoteListController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0DB44BB1C4C02E500B8D52F /* CPNoteListController.m */; };
 		D0DB44C21C4C02E500B8D52F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D0DB44BE1C4C02E500B8D52F /* AppDelegate.m */; };
 		D0DB44C31C4C02E500B8D52F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D0DB44C01C4C02E500B8D52F /* main.m */; };
@@ -57,7 +60,6 @@
 		D0DB450C1C4C049500B8D52F /* View+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D0DB45001C4C049500B8D52F /* View+MASAdditions.m */; };
 		D0DB450D1C4C049500B8D52F /* ViewController+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D0DB45031C4C049500B8D52F /* ViewController+MASAdditions.m */; };
 		D0DB45101C4CA7F000B8D52F /* CPNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0DB450F1C4CA7F000B8D52F /* CPNavigationController.m */; };
-		D0DB451A1C4CBD6100B8D52F /* UIImage+Bundle.m in Sources */ = {isa = PBXBuildFile; fileRef = D0DB45191C4CBD6100B8D52F /* UIImage+Bundle.m */; };
 		D0DB451D1C4CBF7300B8D52F /* UIBarButtonItem+CP.m in Sources */ = {isa = PBXBuildFile; fileRef = D0DB451C1C4CBF7300B8D52F /* UIBarButtonItem+CP.m */; };
 		D0DB45221C4D051E00B8D52F /* CPNoteEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0DB45211C4D051E00B8D52F /* CPNoteEditController.m */; };
 		D0DB45261C4D10B300B8D52F /* CPNote.m in Sources */ = {isa = PBXBuildFile; fileRef = D0DB45251C4D10B300B8D52F /* CPNote.m */; };
@@ -72,6 +74,8 @@
 		D088C53A1C4BF650001000C8 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		D088C53C1C4BF952001000C8 /* Resource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Resource.bundle; sourceTree = "<group>"; };
 		D088C5481C4BFF1B001000C8 /* cloud_paper_launch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cloud_paper_launch.png; sourceTree = "<group>"; };
+		D0B8E6391C4FBE01009FD3E0 /* CPGuideToCreateNoteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPGuideToCreateNoteView.h; sourceTree = "<group>"; };
+		D0B8E63A1C4FBE01009FD3E0 /* CPGuideToCreateNoteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPGuideToCreateNoteView.m; sourceTree = "<group>"; };
 		D0B8EABF1C4E0B08003F5CBA /* YYTextContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYTextContainerView.h; sourceTree = "<group>"; };
 		D0B8EAC01C4E0B08003F5CBA /* YYTextContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYTextContainerView.m; sourceTree = "<group>"; };
 		D0B8EAC11C4E0B08003F5CBA /* YYTextDebugOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYTextDebugOption.h; sourceTree = "<group>"; };
@@ -137,6 +141,10 @@
 		D0B8EB1F1C4EAFA4003F5CBA /* CPBaseNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPBaseNavigationController.m; sourceTree = "<group>"; };
 		D0B8EB211C4EB0D7003F5CBA /* CPSettingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPSettingController.h; sourceTree = "<group>"; };
 		D0B8EB221C4EB0D7003F5CBA /* CPSettingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPSettingController.m; sourceTree = "<group>"; };
+		D0B8EB491C4F540A003F5CBA /* CPNoteCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPNoteCell.h; sourceTree = "<group>"; };
+		D0B8EB4A1C4F540A003F5CBA /* CPNoteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPNoteCell.m; sourceTree = "<group>"; };
+		D0B8EB4C1C4F59F6003F5CBA /* UIImage+Phoenix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Phoenix.h"; sourceTree = "<group>"; };
+		D0B8EB4D1C4F59F6003F5CBA /* UIImage+Phoenix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Phoenix.m"; sourceTree = "<group>"; };
 		D0DB44BA1C4C02E500B8D52F /* CPNoteListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPNoteListController.h; sourceTree = "<group>"; };
 		D0DB44BB1C4C02E500B8D52F /* CPNoteListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPNoteListController.m; sourceTree = "<group>"; };
 		D0DB44BD1C4C02E500B8D52F /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -170,8 +178,6 @@
 		D0DB450E1C4CA7F000B8D52F /* CPNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPNavigationController.h; sourceTree = "<group>"; };
 		D0DB450F1C4CA7F000B8D52F /* CPNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPNavigationController.m; sourceTree = "<group>"; };
 		D0DB45121C4CABA200B8D52F /* CPMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CPMacro.h; sourceTree = "<group>"; };
-		D0DB45181C4CBD6100B8D52F /* UIImage+Bundle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Bundle.h"; sourceTree = "<group>"; };
-		D0DB45191C4CBD6100B8D52F /* UIImage+Bundle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Bundle.m"; sourceTree = "<group>"; };
 		D0DB451B1C4CBF7300B8D52F /* UIBarButtonItem+CP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+CP.h"; sourceTree = "<group>"; };
 		D0DB451C1C4CBF7300B8D52F /* UIBarButtonItem+CP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+CP.m"; sourceTree = "<group>"; };
 		D0DB45201C4D051E00B8D52F /* CPNoteEditController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPNoteEditController.h; sourceTree = "<group>"; };
@@ -325,10 +331,22 @@
 			name = Framework;
 			sourceTree = "<group>";
 		};
+		D0B8EB481C4F53F1003F5CBA /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D0B8EB491C4F540A003F5CBA /* CPNoteCell.h */,
+				D0B8EB4A1C4F540A003F5CBA /* CPNoteCell.m */,
+				D0B8E6391C4FBE01009FD3E0 /* CPGuideToCreateNoteView.h */,
+				D0B8E63A1C4FBE01009FD3E0 /* CPGuideToCreateNoteView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		D0DB44B81C4C02E500B8D52F /* Classes */ = {
 			isa = PBXGroup;
 			children = (
 				D0DB45291C4D51CF00B8D52F /* Tool */,
+				D0B8EB481C4F53F1003F5CBA /* View */,
 				D0DB45231C4D109C00B8D52F /* Model */,
 				D0DB44B91C4C02E500B8D52F /* Controller */,
 				D0DB44BC1C4C02E500B8D52F /* Others */,
@@ -412,10 +430,10 @@
 		D0DB45171C4CBD3400B8D52F /* Category */ = {
 			isa = PBXGroup;
 			children = (
-				D0DB45181C4CBD6100B8D52F /* UIImage+Bundle.h */,
-				D0DB45191C4CBD6100B8D52F /* UIImage+Bundle.m */,
 				D0DB451B1C4CBF7300B8D52F /* UIBarButtonItem+CP.h */,
 				D0DB451C1C4CBF7300B8D52F /* UIBarButtonItem+CP.m */,
+				D0B8EB4C1C4F59F6003F5CBA /* UIImage+Phoenix.h */,
+				D0B8EB4D1C4F59F6003F5CBA /* UIImage+Phoenix.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -563,7 +581,6 @@
 				D0B8EB001C4E0B08003F5CBA /* NSAttributedString+YYText.m in Sources */,
 				D0B8EB201C4EAFA4003F5CBA /* CPBaseNavigationController.m in Sources */,
 				D0B8EB051C4E0B08003F5CBA /* YYTextTransaction.m in Sources */,
-				D0DB451A1C4CBD6100B8D52F /* UIImage+Bundle.m in Sources */,
 				D0B8EB231C4EB0D7003F5CBA /* CPSettingController.m in Sources */,
 				D0B8EB011C4E0B08003F5CBA /* NSParagraphStyle+YYText.m in Sources */,
 				D0DB44C21C4C02E500B8D52F /* AppDelegate.m in Sources */,
@@ -573,11 +590,13 @@
 				D0B8EB1A1C4E6B7C003F5CBA /* FMResultSet.m in Sources */,
 				D0B8EAF21C4E0B08003F5CBA /* YYTextContainerView.m in Sources */,
 				D0B8EAF71C4E0B08003F5CBA /* YYTextLayout.m in Sources */,
+				D0B8E63B1C4FBE01009FD3E0 /* CPGuideToCreateNoteView.m in Sources */,
 				D0B8EB061C4E0B08003F5CBA /* YYTextUtilities.m in Sources */,
 				D0DB45071C4C049500B8D52F /* MASLayoutConstraint.m in Sources */,
 				D0B8EB171C4E6B7C003F5CBA /* FMDatabaseAdditions.m in Sources */,
 				D0DB44C11C4C02E500B8D52F /* CPNoteListController.m in Sources */,
 				D0DB450D1C4C049500B8D52F /* ViewController+MASAdditions.m in Sources */,
+				D0B8EB4B1C4F540A003F5CBA /* CPNoteCell.m in Sources */,
 				D0DB45221C4D051E00B8D52F /* CPNoteEditController.m in Sources */,
 				D0DB451D1C4CBF7300B8D52F /* UIBarButtonItem+CP.m in Sources */,
 				D0DB452C1C4D51E700B8D52F /* CPNoteManager.m in Sources */,
@@ -588,6 +607,7 @@
 				D0DB45051C4C049500B8D52F /* MASConstraint.m in Sources */,
 				D0B8EB091C4E0B08003F5CBA /* YYTextView.m in Sources */,
 				D0B8EAFC1C4E0B08003F5CBA /* YYTextAttribute.m in Sources */,
+				D0B8EB4E1C4F59F6003F5CBA /* UIImage+Phoenix.m in Sources */,
 				D0DB45061C4C049500B8D52F /* MASConstraintMaker.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

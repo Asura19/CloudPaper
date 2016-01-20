@@ -13,6 +13,7 @@
 #import "CPMacro.h"
 #import "YYText.h"
 #import "UIBarButtonItem+CP.h"
+#import "CPNoteManager.h"
 
 CGFloat const kHorizontalMargin = 10.f;
 CGFloat const kVerticalMargin = 10.f;
@@ -26,6 +27,7 @@ CGFloat const kVerticalMargin = 10.f;
     UIBarButtonItem *_addPhotoItem;
     UIBarButtonItem *_deleteItem;
     UIBarButtonItem *_shareItem;
+    UIBarButtonItem *_countItem;
 }
 @end
 
@@ -81,6 +83,7 @@ CGFloat const kVerticalMargin = 10.f;
                                 highligntedIcon:@"nothing"
                                          target:self
                                          action:@selector(delete)];
+//    _countItem = [UIBarButtonItem init ]
 }
 
 - (void)initSuiews
@@ -108,6 +111,7 @@ CGFloat const kVerticalMargin = 10.f;
 }
 
 - (void)turnToEditingState {
+//    self.title = @"11111";
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:_doneItem, _addPhotoItem, nil];
 }
 
@@ -184,6 +188,9 @@ CGFloat const kVerticalMargin = 10.f;
               [NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
     if ((string == nil || string.length == 0)) {
+        if (_note) {
+            [self delete];
+        }
         [self.navigationController popViewControllerAnimated:YES];
         return;
     }
@@ -201,7 +208,7 @@ CGFloat const kVerticalMargin = 10.f;
             _saved = YES;
             [self turnToLookingUpState];
         } else {
-            [ProgressHUD showError:@"SaveFail"];
+//            [ProgressHUD showError:@"SaveFail"];
         }
     } else {
         createDate = [NSDate date];
@@ -215,7 +222,7 @@ CGFloat const kVerticalMargin = 10.f;
             _saved = YES;
             [self turnToLookingUpState];
         } else {
-            [ProgressHUD showError:@"SaveFail"];
+//            [ProgressHUD showError:@"SaveFail"];
         }
     }
 }
@@ -229,12 +236,16 @@ CGFloat const kVerticalMargin = 10.f;
 }
 
 - (void)delete {
-    
+    BOOL success = [[CPNoteManager sharedManager] deleteNote:_note];
+    if (success) {
+        [self.navigationController popViewControllerAnimated:YES];
+    } else {
+        [ProgressHUD showError:@"DeleteFail"];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    
 }
 
 - (void)dealloc
@@ -244,6 +255,10 @@ CGFloat const kVerticalMargin = 10.f;
 
 - (void)textViewDidChange:(YYTextView *)textView {
     // 监听字数
+//    NSLog(@"%ld", [_contentTextView.text length]);
+    NSString *count = [NSString stringWithFormat:@"%ld", [_contentTextView.text length]];
+    self.title = count;
+    
 }
 
 @end
