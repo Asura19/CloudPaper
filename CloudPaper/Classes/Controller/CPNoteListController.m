@@ -36,7 +36,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    self.view.backgroundColor = CPColor(226, 226, 226);
+//    self.view.backgroundColor = CPColor(244, 244, 244);
     self.tableView.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamedInResourceBundle:@"bg"]];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.contentInset = UIEdgeInsetsMake(0, 0, CPNOTECELL_BORDER, 0);
@@ -69,7 +69,8 @@
     CPGuideToCreateNoteView *guideView = [[CPGuideToCreateNoteView alloc] init];
     self.guideView = guideView;
     self.guideView.hidden = YES;
-    guideView.frame = CGRectMake(0, 200, 120, 200);
+    guideView.frame = CGRectMake(0, 0, 180, 180);
+    guideView.center = self.tableView.backgroundView.center;
 //    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:guideView];
     [self.tableView.backgroundView addSubview:guideView];
 }
