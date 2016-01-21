@@ -40,3 +40,8 @@
  */
 #define SCREEN_WIDTH ([UIScreen mainScreen].bounds.size.width)
 #define SCREEN_HEIGHT ([UIScreen mainScreen].bounds.size.height)
+/**
+ *  编辑界面计数数字的字体
+ */
+#define NAVIGATIONBAR_COUNT_FONT_SIZE 16
+#define NAVIGATIONBAR_COUNT_FONT [UIFont systemFontOfSize:16]

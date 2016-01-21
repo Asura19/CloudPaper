@@ -14,6 +14,7 @@
 @property (nonatomic, strong) NSString *docPath;
 
 - (NSMutableArray *)readAllNotes;
+- (NSMutableArray *)searchNoteWithString:(NSString *)string;
 - (CPNote *)readNoteWithID:(NSString *)noteID;
 - (BOOL)addNote:(CPNote *)note;
 - (BOOL)updateNote:(CPNote *)note;

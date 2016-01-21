@@ -18,11 +18,15 @@
 #import "CPNoteCell.h"
 #import "UIImage+Phoenix.h"
 #import "CPGuideToCreateNoteView.h"
+#import "NSDate+CP.h"
+#import "CPSearchBar.h"
+#import "Masonry.h"
 
-@interface CPNoteListController ()
+@interface CPNoteListController ()<UITextFieldDelegate>
 
 @property (nonatomic, strong) NSMutableArray *notes;
 @property (nonatomic, weak) CPGuideToCreateNoteView *guideView;
+@property (nonatomic, weak) CPSearchBar *searchBar;
 @end
 
 @implementation CPNoteListController
@@ -36,12 +40,31 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    self.view.backgroundColor = CPColor(244, 244, 244);
+    [self setupTableView];
+
+    [self setupGuideToCreateNoteView];
+    [self setupNavigationItems];
+}
+
+- (void)setupTableView {
+    //    self.view.backgroundColor = CPColor(244, 244, 244);
     self.tableView.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamedInResourceBundle:@"bg"]];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.contentInset = UIEdgeInsetsMake(0, 0, CPNOTECELL_BORDER, 0);
-    [self setupGuideToCreateNoteView];
-    [self setupNavigationItems];
+    
+    CPSearchBar *searchBar = [CPSearchBar searchBar];
+    self.searchBar = searchBar;
+    searchBar.frame = CGRectMake(0, 9, SCREEN_WIDTH - 2 * CPNOTECELL_BORDER - 2, 30);
+    searchBar.center = CGPointMake(self.tableView.center.x, searchBar.center.y);
+    searchBar.delegate = self;
+    // failed to use Masonry
+//    [searchBar mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(self.tableView.mas_top).offset(5);
+//        make.centerX.equalTo(self.tableView.mas_centerX);
+//        make.width.equalTo(@(SCREEN_WIDTH - 2 * CPNOTECELL_BORDER));
+//        make.height.equalTo(@(30));
+//    }];
+    [self.tableView addSubview:searchBar];
 }
 
 - (void)setupNavigationItems {
@@ -69,7 +92,7 @@
     CPGuideToCreateNoteView *guideView = [[CPGuideToCreateNoteView alloc] init];
     self.guideView = guideView;
     self.guideView.hidden = YES;
-    guideView.frame = CGRectMake(0, 0, 180, 180);
+    guideView.frame = CGRectMake(0, 0, 200, 200);
     guideView.center = self.tableView.backgroundView.center;
 //    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:guideView];
     [self.tableView.backgroundView addSubview:guideView];
@@ -115,13 +138,9 @@
     } else {
         cell.noteContentLabel.text = note.content;
     }
-    // 时间
-    NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
-    [fmt setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"]];
-    [fmt setDateFormat:@"EEE MMM dd HH:mm:ss Z yyyy年"];
-    NSString *s = [fmt stringFromDate:note.updatedDate];
-    
-    cell.timeLabel.text = s;
+  
+
+    cell.timeLabel.text = [NSDate showDate:note.updatedDate];
     return cell;
 }
 
@@ -136,6 +155,28 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return CPNOTECELL_HEIGHT;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    NSLog(@"ssss");
+    [self.searchBar endEditing:YES];
+}
+
+#pragma mark TextField Delegate method
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    NSLog(@"%@", self.searchBar.text);
+    
+    _notes = [[CPNoteManager sharedManager] searchNoteWithString:string];
+    [self.tableView reloadData];
+    return YES;
+}
+
+- (BOOL)textFieldShouldClear:(UITextField *)textField {
+    NSLog(@"clear");
+    _notes = [[CPNoteManager sharedManager] readAllNotes];
+    [self.tableView reloadData];
+    return YES;
 }
 
 @end

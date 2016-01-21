@@ -27,7 +27,8 @@ CGFloat const kVerticalMargin = 10.f;
     UIBarButtonItem *_addPhotoItem;
     UIBarButtonItem *_deleteItem;
     UIBarButtonItem *_shareItem;
-    UIBarButtonItem *_countItem;
+    NSString *_tempContent;
+    int _editTimes;
 }
 @end
 
@@ -44,6 +45,9 @@ CGFloat const kVerticalMargin = 10.f;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
+    
+    _tempContent = _note.content;
+    _editTimes = 0;
     _saved = NO;
     // 右划返回
     self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
@@ -83,7 +87,6 @@ CGFloat const kVerticalMargin = 10.f;
                                 highligntedIcon:@"nothing"
                                          target:self
                                          action:@selector(delete)];
-//    _countItem = [UIBarButtonItem init ]
 }
 
 - (void)initSuiews
@@ -91,9 +94,8 @@ CGFloat const kVerticalMargin = 10.f;
     CGRect frame = self.view.bounds;
     _contentTextView = [[YYTextView alloc] initWithFrame:frame];
 
-    _contentTextView.textContainerInset = UIEdgeInsetsMake(10, 12, 10, 10);
+    _contentTextView.textContainerInset = UIEdgeInsetsMake(10, 14, 10, 10);
     _contentTextView.delegate = self;
-//    _contentTextView.backgroundColor = [UIColor grayColor];
     _contentTextView.textColor = [UIColor blackColor];
     _contentTextView.autocorrectionType = UITextAutocorrectionTypeNo;
     _contentTextView.autocapitalizationType = UITextAutocapitalizationTypeNone;
@@ -111,7 +113,6 @@ CGFloat const kVerticalMargin = 10.f;
 }
 
 - (void)turnToEditingState {
-//    self.title = @"11111";
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:_doneItem, _addPhotoItem, nil];
 }
 
@@ -197,11 +198,18 @@ CGFloat const kVerticalMargin = 10.f;
     
     NSDate *createDate;
     if (_note) {
+        
+        NSDate *updateDate;
+        if ([_tempContent isEqualToString:_contentTextView.text] && (_editTimes < 2)) {
+            updateDate = _note.updatedDate;
+        } else {
+            updateDate = [NSDate date];
+        }
         createDate = _note.createdDate;
         CPNote *note = [[CPNote alloc] initWithTitle:nil
                                              content:string
                                          createdDate:createDate
-                                          updateDate:[NSDate date]];
+                                          updateDate:updateDate];
         _note = note;
         BOOL success = [note PersistenceToUpdate];
         if (success) {
@@ -257,8 +265,18 @@ CGFloat const kVerticalMargin = 10.f;
     // 监听字数
 //    NSLog(@"%ld", [_contentTextView.text length]);
     NSString *count = [NSString stringWithFormat:@"%ld", [_contentTextView.text length]];
-    self.title = count;
+    
+    UILabel *titleLabel = [[UILabel alloc] init];
+    titleLabel.font = [UIFont fontWithName:@"Futura-Medium" size:NAVIGATIONBAR_COUNT_FONT_SIZE];
+    titleLabel.text = count;
+    titleLabel.textColor = [UIColor whiteColor];
+    CGSize titleLabelSize = [titleLabel.text sizeWithAttributes:@{NSFontAttributeName:NAVIGATIONBAR_COUNT_FONT}];
+    titleLabel.frame = (CGRect){{0, 0}, titleLabelSize};
+    self.navigationItem.titleView = titleLabel;
+//    self.title = count;
+    _editTimes++;
     
 }
+
 
 @end

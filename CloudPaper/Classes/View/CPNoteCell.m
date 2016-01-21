@@ -42,7 +42,7 @@
     return self;
 }
 
-// 设置原创微博的内部子控件
+// 设置cell的内部子控件
 - (void)setupNoteSubViews {
     // 设置cell选中时图片
     _backgroundView = [[UIImageView alloc] init];
@@ -53,18 +53,18 @@
     _selectedBackgroundView.image = [UIImage resizedImageNamed:@"cell_background_highlighted_os9"];
     self.selectedBackgroundView = _selectedBackgroundView;
     
-    UILabel *timeLabel = [[UILabel alloc] init];
+    YYLabel *timeLabel = [[YYLabel alloc] init];
     [self.contentView  addSubview:timeLabel];
     self.timeLabel = timeLabel;
     
     _separatLine = [[UIView alloc] init];
     [self.contentView addSubview:_separatLine];
     
-    UILabel *noteContentLabel = [[UILabel alloc] init];
+    YYLabel *noteContentLabel = [[YYLabel alloc] init];
     [self.contentView  addSubview:noteContentLabel];
     self.noteContentLabel = noteContentLabel;
     
-    UILabel *remindLabel = [[UILabel alloc] init];
+    YYLabel *remindLabel = [[YYLabel alloc] init];
     [self.contentView  addSubview:remindLabel];
     self.remindLabel = remindLabel;
     
@@ -86,10 +86,11 @@
     CGFloat timeLabelX = 2 * CPNOTECELL_BORDER;
     CGFloat timeLabelW = 150;
     CGFloat timeLabelH = 25;
-    self.timeLabel.frame = CGRectMake(timeLabelX, 0, timeLabelW, timeLabelH);
-//    self.timeLabel.backgroundColor = [UIColor yellowColor];
+    self.timeLabel.frame = CGRectMake(timeLabelX, 2, timeLabelW, timeLabelH);
+    self.timeLabel.font = [UIFont systemFontOfSize:12];
+    self.timeLabel.textColor = CPColor(111, 111, 111);
     
-    CGFloat separateLineY = timeLabelH;
+    CGFloat separateLineY = timeLabelH + 1;
     CGFloat separateLineW = cellWidth;
     CGFloat separateLineH = 1;
     _separatLine.frame = CGRectMake(1.5, separateLineY, separateLineW - 3, separateLineH);
@@ -100,22 +101,20 @@
     CGFloat remindLabelH = timeLabelH;
     CGFloat remindLabelX = cellWidth - remindLabelW;
     self.remindLabel.frame = CGRectMake(remindLabelX, 0, remindLabelW, remindLabelH);
-//    self.remindLabel.backgroundColor = [UIColor purpleColor];
+#warning remindLabel
+    self.remindLabel.text = @"19:00";
     
     CGFloat photoViewW = 40;
     CGFloat photoViewH = 28;
     CGFloat photoViewX = cellWidth - photoViewW;
     CGFloat photoViewY = remindLabelH + 7;
     self.photoView.frame = CGRectMake(photoViewX, photoViewY, photoViewW, photoViewH);
-//    self.photoView.backgroundColor = [UIColor greenColor];
     
     CGFloat noteContentLabelY = timeLabelH;
     CGFloat noteContentLabelW = cellWidth - photoViewW - timeLabelX;
     CGFloat noteContentLabelH = cellHeight - timeLabelH;
     self.noteContentLabel.frame = CGRectMake(timeLabelX, noteContentLabelY, noteContentLabelW, noteContentLabelH);
-//    self.noteContentLabel.backgroundColor = [UIColor orangeColor];
-    
-    
+    self.noteContentLabel.font = [UIFont systemFontOfSize:19];
 }
 
 /**
@@ -123,7 +122,7 @@
  */
 - (void)setFrame:(CGRect)frame
 {
-    frame.origin.y += CPNOTECELL_BORDER;
+    frame.origin.y += 6 * CPNOTECELL_BORDER;
     frame.origin.x = CPNOTECELL_BORDER;
     frame.size.width -= 2 * CPNOTECELL_BORDER;
     frame.size.height -= CPNOTECELL_BORDER;
