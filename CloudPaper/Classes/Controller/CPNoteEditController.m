@@ -14,11 +14,12 @@
 #import "YYText.h"
 #import "UIBarButtonItem+CP.h"
 #import "CPNoteManager.h"
+#import "FDActionSheet.h"
 
 CGFloat const kHorizontalMargin = 10.f;
 CGFloat const kVerticalMargin = 10.f;
 
-@interface CPNoteEditController ()<YYTextViewDelegate>
+@interface CPNoteEditController ()<YYTextViewDelegate, FDActionSheetDelegate>
 {
     CPNote *_note;
     YYTextView *_contentTextView;
@@ -86,7 +87,7 @@ CGFloat const kVerticalMargin = 10.f;
     _deleteItem = [UIBarButtonItem itemWithIcon:@"btn_delete"
                                 highligntedIcon:@"nothing"
                                          target:self
-                                         action:@selector(delete)];
+                                         action:@selector(deleteButtonClicked)];
 }
 
 - (void)initSuiews
@@ -232,6 +233,24 @@ CGFloat const kVerticalMargin = 10.f;
         } else {
 //            [ProgressHUD showError:@"SaveFail"];
         }
+    }
+}
+
+- (void)deleteButtonClicked {
+    [self hideKeyboard];
+    FDActionSheet *actionSheet = [[FDActionSheet alloc] initWithTitle:@"确定要删除此条便签?"
+                                                             delegate:self
+                                                    cancelButtonTitle:@"取消"
+                                                    otherButtonTitles:@"删除", nil];
+    
+    [actionSheet setTitleColor:[UIColor blackColor] fontSize:12];
+    [actionSheet setButtonTitleColor:[UIColor redColor] bgColor:nil fontSize:0 atIndex:0];
+    [actionSheet show];
+}
+
+- (void)actionSheet:(FDActionSheet *)sheet clickedButtonIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0) {
+        [self delete];
     }
 }
 

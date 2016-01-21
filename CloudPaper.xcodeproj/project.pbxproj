@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D02F8B9B1C515F1B0068B93F /* FDActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = D02F8B9A1C515F1B0068B93F /* FDActionSheet.m */; };
 		D03ABD7C1C4FF7CD00F32E85 /* NSDate+CP.m in Sources */ = {isa = PBXBuildFile; fileRef = D03ABD7B1C4FF7CD00F32E85 /* NSDate+CP.m */; };
 		D0507A031C4BEFF9008D1907 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D05079FF1C4BEFF9008D1907 /* Assets.xcassets */; };
 		D088C53B1C4BF650001000C8 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D088C53A1C4BF650001000C8 /* Launch Screen.storyboard */; };
@@ -71,6 +72,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D02F8B991C515F1B0068B93F /* FDActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FDActionSheet.h; sourceTree = "<group>"; };
+		D02F8B9A1C515F1B0068B93F /* FDActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FDActionSheet.m; sourceTree = "<group>"; };
 		D03ABD7A1C4FF7CD00F32E85 /* NSDate+CP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+CP.h"; sourceTree = "<group>"; };
 		D03ABD7B1C4FF7CD00F32E85 /* NSDate+CP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+CP.m"; sourceTree = "<group>"; };
 		D05079FF1C4BEFF9008D1907 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -340,6 +343,8 @@
 		D0B8EB481C4F53F1003F5CBA /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D02F8B991C515F1B0068B93F /* FDActionSheet.h */,
+				D02F8B9A1C515F1B0068B93F /* FDActionSheet.m */,
 				D0B8EB491C4F540A003F5CBA /* CPNoteCell.h */,
 				D0B8EB4A1C4F540A003F5CBA /* CPNoteCell.m */,
 				D0B8E6391C4FBE01009FD3E0 /* CPGuideToCreateNoteView.h */,
@@ -601,6 +606,7 @@
 				D0B8EAF21C4E0B08003F5CBA /* YYTextContainerView.m in Sources */,
 				D0B8EAF71C4E0B08003F5CBA /* YYTextLayout.m in Sources */,
 				D0B8E63B1C4FBE01009FD3E0 /* CPGuideToCreateNoteView.m in Sources */,
+				D02F8B9B1C515F1B0068B93F /* FDActionSheet.m in Sources */,
 				D0B8EB061C4E0B08003F5CBA /* YYTextUtilities.m in Sources */,
 				D0DB45071C4C049500B8D52F /* MASLayoutConstraint.m in Sources */,
 				D0B8EB171C4E6B7C003F5CBA /* FMDatabaseAdditions.m in Sources */,

@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "YYLabel.h"
+#import "CPNote.h"
+
 
 @interface CPNoteCell : UITableViewCell
 
@@ -15,6 +17,7 @@
 @property (nonatomic, weak) YYLabel *noteContentLabel;
 @property (nonatomic, weak) YYLabel *remindLabel;
 @property (nonatomic, weak) UIImageView *photoView;
-
+@property (nonatomic, strong) UIView *myContentView;
+@property (nonatomic, strong) CPNote *note;
 + (instancetype)cellWithTableView:(UITableView *)tableView;
 @end

@@ -9,12 +9,16 @@
 #import "CPNoteCell.h"
 #import "UIImage+Phoenix.h"
 #import "CPMacro.h"
+#import "NSDate+CP.h"
 
 @interface CPNoteCell()
 {
     UIImageView *_backgroundView;
+    UIView *_myContentView;
     UIImageView *_selectedBackgroundView;
     UIView *_separatLine;
+    UIButton *_deleteButton;
+    UIButton *_remindButton;
 }
 @end
 
@@ -36,11 +40,53 @@
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         // 设置笔记的内部子控件
         [self setupNoteSubViews];
-
+//        UIPanGestureRecognizer *gesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGesture:)];
+//        [gesture setMaximumNumberOfTouches:1];
+//        [self addGestureRecognizer:gesture];
         self.backgroundColor = [UIColor clearColor];
+//        self.backgroundColor = CPColor(115, 194, 247);
     }
     return self;
 }
+
+//- (void)panGesture:(UIPanGestureRecognizer *)gesture {
+//    switch (gesture.state) {
+//        case UIGestureRecognizerStateBegan:
+//            NSLog(@"begin");
+//            break;
+//        case UIGestureRecognizerStateChanged:
+//            [self.contentView setFrame:CGRectMake([gesture translationInView:self].x, self.contentView.frame.origin.y, self.contentView.frame.size.width, self.contentView.frame.size.height)];
+//            [self.backgroundView setFrame:CGRectMake([gesture translationInView:self].x, self.contentView.frame.origin.y, self.contentView.frame.size.width, self.contentView.frame.size.height)];
+//
+//            break;
+//        case UIGestureRecognizerStateEnded:
+//        {
+//            [UIView animateWithDuration:0.4 delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:0.5 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+//                [self.contentView setFrame:CGRectMake(0, self.contentView.frame.origin.y, self.contentView.frame.size.width, self.contentView.frame.size.height)];
+//                [self.backgroundView setFrame:CGRectMake(0, self.contentView.frame.origin.y, self.contentView.frame.size.width, self.contentView.frame.size.height)];
+//
+//            } completion:nil];
+//        }
+//        break;
+//        default:
+//            break;
+//    }
+//}
+//
+//- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+//    if ([gestureRecognizer.view isKindOfClass:[UITableView class]]) {
+//        return YES;
+//    }
+//    return NO;
+//
+//}
+//- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+//    if ([gestureRecognizer.view isKindOfClass:[UITableView class]]) {
+//        return YES;
+//    }
+//    return YES;
+//}
+
 
 // 设置cell的内部子控件
 - (void)setupNoteSubViews {
@@ -53,36 +99,53 @@
     _selectedBackgroundView.image = [UIImage resizedImageNamed:@"cell_background_highlighted_os9"];
     self.selectedBackgroundView = _selectedBackgroundView;
     
+    _deleteButton = [[UIButton alloc] init];
+//    _deleteButton.backgroundColor = [UIColor redColor];
+    [self addSubview:_deleteButton];
+    [self insertSubview:_deleteButton belowSubview:self.backgroundView];
+    _remindButton = [[UIButton alloc] init];
+//    _remindButton.backgroundColor = [UIColor redColor];
+    [self addSubview:_remindButton];
+    [self insertSubview:_remindButton belowSubview:self.backgroundView];
+
+    _myContentView = [UIView new];
+    [_myContentView setBackgroundColor:[UIColor whiteColor]];
+    [self.contentView addSubview:_myContentView];
+    
     YYLabel *timeLabel = [[YYLabel alloc] init];
-    [self.contentView  addSubview:timeLabel];
+    [self.myContentView addSubview:timeLabel];
     self.timeLabel = timeLabel;
     
     _separatLine = [[UIView alloc] init];
-    [self.contentView addSubview:_separatLine];
+    [self.myContentView addSubview:_separatLine];
     
     YYLabel *noteContentLabel = [[YYLabel alloc] init];
-    [self.contentView  addSubview:noteContentLabel];
+    [self.myContentView  addSubview:noteContentLabel];
     self.noteContentLabel = noteContentLabel;
     
     YYLabel *remindLabel = [[YYLabel alloc] init];
-    [self.contentView  addSubview:remindLabel];
+    [self.myContentView  addSubview:remindLabel];
     self.remindLabel = remindLabel;
     
     UIImageView *photoView = [[UIImageView alloc] init];
     photoView.image = [UIImage imageNamedInResourceBundle:@"icon_photo"];
-    [self.contentView  addSubview:photoView];
+    [self.myContentView  addSubview:photoView];
     self.photoView = photoView;
     
 }
 
 
 - (void)layoutSubviews {
-    CGFloat cellWidth = SCREEN_WIDTH - 2 * CPNOTECELL_BORDER;
+    CGFloat cellWidth = SCREEN_WIDTH - 3;
     CGFloat cellHeight = CPNOTECELL_HEIGHT - CPNOTECELL_BORDER;
-
+    [self.contentView setFrame:self.bounds];
+    [self.myContentView setFrame:CGRectMake(2, 2, self.contentView.bounds.size.width - 4, self.contentView.bounds.size.height - 4)];
     _backgroundView.frame = self.contentView.bounds;
     _selectedBackgroundView.frame = self.contentView.bounds;
     
+    _deleteButton.frame = CGRectMake(0, 0, 30, 30);
+    _remindButton.frame = CGRectMake(350, 0, 30, 30);
+//
     CGFloat timeLabelX = 2 * CPNOTECELL_BORDER;
     CGFloat timeLabelW = 150;
     CGFloat timeLabelH = 25;
@@ -92,8 +155,8 @@
     
     CGFloat separateLineY = timeLabelH + 1;
     CGFloat separateLineW = cellWidth;
-    CGFloat separateLineH = 1;
-    _separatLine.frame = CGRectMake(1.5, separateLineY, separateLineW - 3, separateLineH);
+    CGFloat separateLineH = 2 / [UIScreen mainScreen].scale;
+    _separatLine.frame = CGRectMake(0, separateLineY, separateLineW, separateLineH);
     _separatLine.backgroundColor = CPColor(226, 226, 226);
     _separatLine.alpha = 0.7;
     
@@ -102,7 +165,7 @@
     CGFloat remindLabelX = cellWidth - remindLabelW;
     self.remindLabel.frame = CGRectMake(remindLabelX, 0, remindLabelW, remindLabelH);
 #warning remindLabel
-    self.remindLabel.text = @"19:00";
+//    self.remindLabel.text = @"19:00";
     
     CGFloat photoViewW = 40;
     CGFloat photoViewH = 28;
@@ -117,16 +180,15 @@
     self.noteContentLabel.font = [UIFont systemFontOfSize:19];
 }
 
-/**
- *  拦截frame的设置
- */
-- (void)setFrame:(CGRect)frame
-{
-    frame.origin.y += 6 * CPNOTECELL_BORDER;
-    frame.origin.x = CPNOTECELL_BORDER;
-    frame.size.width -= 2 * CPNOTECELL_BORDER;
-    frame.size.height -= CPNOTECELL_BORDER;
-    [super setFrame:frame];
+- (void)setNote:(CPNote *)note {
+    _note = note;
+    NSString *content = self.note.content;
+    if ([content length] > 40) {
+        self.noteContentLabel.text = [content substringWithRange:NSMakeRange(0, 40)];
+    } else {
+        self.noteContentLabel.text = content;
+    }
+    
+    self.timeLabel.text = [NSDate showDate:note.updatedDate];
 }
-
 @end

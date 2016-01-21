@@ -67,9 +67,9 @@ static FMDatabaseQueue *_queue;
         if ([string isEqualToString:@""]) {
             rs = [db executeQuery:@"select * from t_notes;"];
         } else {
-            
+//            NSLog(@"%@", string);
             NSString *dqlString = [NSString stringWithFormat:@"select * from t_notes where note_content like \"%%%@%%\";", string];
-            NSLog(@"%@", dqlString);
+//            NSLog(@"%@", dqlString);
             rs = [db executeQuery:dqlString];
             /**
              *  注意：此处因FMDB内部问题，不能直接在 executeQuery 中用 ？拼接语句，而应该先进行字符串拼接
@@ -83,7 +83,7 @@ static FMDatabaseQueue *_queue;
         }
     }];
     
-    NSLog(@"%ld", noteArray.count);
+//    NSLog(@"%ld", noteArray.count);
     // 查询完数据后排序
     NSSortDescriptor *sortDescriptor;
     sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"updatedDate"

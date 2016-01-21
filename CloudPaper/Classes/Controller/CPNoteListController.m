@@ -18,7 +18,6 @@
 #import "CPNoteCell.h"
 #import "UIImage+Phoenix.h"
 #import "CPGuideToCreateNoteView.h"
-#import "NSDate+CP.h"
 #import "CPSearchBar.h"
 #import "Masonry.h"
 
@@ -27,6 +26,7 @@
 @property (nonatomic, strong) NSMutableArray *notes;
 @property (nonatomic, weak) CPGuideToCreateNoteView *guideView;
 @property (nonatomic, weak) CPSearchBar *searchBar;
+@property (nonatomic, strong) UIView *searchView;
 @end
 
 @implementation CPNoteListController
@@ -40,23 +40,28 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setupTableView];
 
+    
+    
+    [self setupTableView];
     [self setupGuideToCreateNoteView];
     [self setupNavigationItems];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(textFieldDidChange:)
+                                                 name:UITextFieldTextDidChangeNotification
+                                               object:nil];
 }
+
+
 
 - (void)setupTableView {
     //    self.view.backgroundColor = CPColor(244, 244, 244);
     self.tableView.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamedInResourceBundle:@"bg"]];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.contentInset = UIEdgeInsetsMake(0, 0, CPNOTECELL_BORDER, 0);
+//    self.tableView.backgroundColor = CPColor(115, 194, 247);
     
-    CPSearchBar *searchBar = [CPSearchBar searchBar];
-    self.searchBar = searchBar;
-    searchBar.frame = CGRectMake(0, 9, SCREEN_WIDTH - 2 * CPNOTECELL_BORDER - 2, 30);
-    searchBar.center = CGPointMake(self.tableView.center.x, searchBar.center.y);
-    searchBar.delegate = self;
+    
     // failed to use Masonry
 //    [searchBar mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.top.equalTo(self.tableView.mas_top).offset(5);
@@ -64,7 +69,8 @@
 //        make.width.equalTo(@(SCREEN_WIDTH - 2 * CPNOTECELL_BORDER));
 //        make.height.equalTo(@(30));
 //    }];
-    [self.tableView addSubview:searchBar];
+//    [self.tableView addSubview:searchBar];
+//    [[UIApplication sharedApplication].keyWindow.rootViewController.view insertSubview:searchBar atIndex:0];
 }
 
 - (void)setupNavigationItems {
@@ -116,31 +122,25 @@
 - (void)viewWillAppear:(BOOL)animated {
     _notes = [[CPNoteManager sharedManager] readAllNotes];
     
-    if (self.notes.count) {
-        self.guideView.hidden = YES;
-    } else {
-        self.guideView.hidden = NO;
-    }
     [self.tableView reloadData];
 }
 
 #pragma mark TableView DataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+//    NSLog(@"----");
+    if (self.notes.count) {
+        self.guideView.hidden = YES;
+        self.searchView.hidden = NO;
+    } else {
+        self.guideView.hidden = NO;
+        self.searchView.hidden = YES;
+    }
     return self.notes.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     CPNoteCell *cell = [CPNoteCell cellWithTableView:tableView];
-    
-    CPNote *note = self.notes[indexPath.row];
-    if ([note.content length] > 40) {
-        cell.noteContentLabel.text = [note.content substringWithRange:NSMakeRange(0, 40)];
-    } else {
-        cell.noteContentLabel.text = note.content;
-    }
-  
-
-    cell.timeLabel.text = [NSDate showDate:note.updatedDate];
+    cell.note = self.notes[indexPath.row];
     return cell;
 }
 
@@ -157,26 +157,76 @@
     return CPNOTECELL_HEIGHT;
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    _searchView = [[UIView alloc] init];
+//    _searchView.backgroundColor = [UIColor redColor];
+    
+    self.searchBar = [CPSearchBar searchBar];
+    _searchBar.frame = CGRectMake(1, 6 , SCREEN_WIDTH - 2, 33);
+    _searchBar.center = CGPointMake(self.tableView.center.x, _searchBar.center.y);
+    _searchBar.delegate = self;
+    
+    [_searchView addSubview:_searchBar];
+    
+    return _searchView;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (self.notes.count) {
+        return 40;
+    } else {
+        return 0;
+    }
+}
+
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) { // 提交的是删除操作
+        // 1.删除模型数据
+        [self.notes removeObjectAtIndex:indexPath.row];
+
+        [[CPNoteManager sharedManager] deleteNote:self.notes[indexPath.row]];
+        // 2.刷新表格
+        [self.tableView reloadData];
+        
+        // 3.归档
+//        [NSKeyedArchiver archiveRootObject:self.contacts toFile:MJContactsFilepath];
+
+    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
+        // 1.修改模型数据
+//        MJContact *contact = [[MJContact alloc] init];
+//        contact.name = @"jack";
+//        contact.phone = @"10086";
+//        [self.contacts insertObject:contact atIndex:indexPath.row + 1];
+//        
+//        // 2.刷新表格
+//        NSIndexPath *nextPath = [NSIndexPath indexPathForRow:indexPath.row + 1 inSection:0];
+//        [self.tableView insertRowsAtIndexPaths:@[nextPath] withRowAnimation:UITableViewRowAnimationBottom];
+//        //        [self.tableView reloadData];
+    }
+}
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    NSLog(@"ssss");
     [self.searchBar endEditing:YES];
 }
 
-#pragma mark TextField Delegate method
-
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
-    NSLog(@"%@", self.searchBar.text);
-    
-    _notes = [[CPNoteManager sharedManager] searchNoteWithString:string];
-    [self.tableView reloadData];
-    return YES;
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
+    return YES;//uitableview和子view也响应 no只响应子view uipangesturerecognizer
 }
 
-- (BOOL)textFieldShouldClear:(UITextField *)textField {
-    NSLog(@"clear");
-    _notes = [[CPNoteManager sharedManager] readAllNotes];
+
+
+#pragma mark TextField Delegate method
+
+- (void)textFieldDidChange:(NSNotification *)noti {
+    _notes = [[CPNoteManager sharedManager] searchNoteWithString:self.searchBar.text];
     [self.tableView reloadData];
-    return YES;
+
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end
