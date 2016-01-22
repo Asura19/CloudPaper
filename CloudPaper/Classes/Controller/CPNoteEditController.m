@@ -15,6 +15,8 @@
 #import "UIBarButtonItem+CP.h"
 #import "CPNoteManager.h"
 #import "FDActionSheet.h"
+#import "CPRemindController.h"
+#import "CPBaseNavigationController.h"
 
 CGFloat const kHorizontalMargin = 10.f;
 CGFloat const kVerticalMargin = 10.f;
@@ -313,7 +315,12 @@ CGFloat const kVerticalMargin = 10.f;
 
 
 - (void)setupRemindNotification {
-    NSLog(@"remind");
+    
+    CPRemindController *remindController = [[CPRemindController alloc] init];
+    CPBaseNavigationController *nav = [[CPBaseNavigationController alloc] initWithRootViewController:remindController];
+    [self presentViewController:nav animated:YES completion:nil];
+    
+    
 }
 
 

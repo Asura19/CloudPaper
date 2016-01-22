@@ -9,6 +9,8 @@
 #import "AppDelegate.h"
 #import "CPNoteListController.h"
 #import "CPNavigationController.h"
+#import "UIView+CP.h"
+#import "PHAudioTool.h"
 
 @interface AppDelegate ()
 
@@ -25,6 +27,46 @@
     [self.window makeKeyAndVisible];
     return YES;
 }
+
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+    NSLog(@"前台时的本地通知在此设置");
+    
+    
+//    NSString *cancelButtonTitle = @"取消";
+//    NSString *takePhotoTitle = @"拍摄照片";
+//    NSString *choosePhotoTitle = @"选择照片";
+//    NSString *drawPictureTitle = @"手绘图片";
+//    
+//    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"添加图片" message:nil preferredStyle:UIAlertControllerStyleAlert];
+//    
+//    // Create the actions.
+//    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:cancelButtonTitle style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+//        NSLog(@"The \"Okay/Cancel\" alert action sheet's cancel action occured.");
+//    }];
+//    
+//    UIAlertAction *takePhotoAction = [UIAlertAction actionWithTitle:takePhotoTitle style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+//        NSLog(@"The \"Okay/Cancel\" alert action sheet's destructive action occured.");
+//    }];
+//    
+//    UIAlertAction *choosePhotoAction = [UIAlertAction actionWithTitle:choosePhotoTitle style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+//        NSLog(@"The \"Okay/Cancel\" alert action sheet's destructive action occured.");
+//    }];
+//    
+//    UIAlertAction *drawPictureAction = [UIAlertAction actionWithTitle:drawPictureTitle style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+//        NSLog(@"The \"Okay/Cancel\" alert action sheet's destructive action occured.");
+//    }];
+//    
+//    [alertController addAction:cancelAction];
+//    [alertController addAction:drawPictureAction];
+//    [alertController addAction:choosePhotoAction];
+//    [alertController addAction:takePhotoAction];
+//    
+////    [[[UIApplication sharedApplication].keyWindow.rootViewController.childViewControllers lastObject] presentViewController:alertController animated:YES completion:nil];
+//    [[UIView currentViewController] presentViewController:alertController animated:YES completion:nil];
+//    [PHAudioTool playSound:@"Tejat.wav"];
+
+}
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

@@ -201,7 +201,7 @@
 //    _searchView.backgroundColor = [UIColor redColor];
     
     self.searchBar = [CPSearchBar searchBar];
-    _searchBar.frame = CGRectMake(1, 6 , SCREEN_WIDTH - 2, 33);
+    _searchBar.frame = CGRectMake(1, 5 , SCREEN_WIDTH - 2, 33);
     _searchBar.center = CGPointMake(self.tableView.center.x, _searchBar.center.y);
     _searchBar.delegate = self;
     

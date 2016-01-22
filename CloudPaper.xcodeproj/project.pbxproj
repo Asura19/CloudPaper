@@ -10,6 +10,10 @@
 		D02F8B9B1C515F1B0068B93F /* FDActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = D02F8B9A1C515F1B0068B93F /* FDActionSheet.m */; };
 		D03ABD7C1C4FF7CD00F32E85 /* NSDate+CP.m in Sources */ = {isa = PBXBuildFile; fileRef = D03ABD7B1C4FF7CD00F32E85 /* NSDate+CP.m */; };
 		D0507A031C4BEFF9008D1907 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D05079FF1C4BEFF9008D1907 /* Assets.xcassets */; };
+		D07276A31C5239C50015A599 /* Tejat.wav in Resources */ = {isa = PBXBuildFile; fileRef = D07276A21C5239C50015A599 /* Tejat.wav */; };
+		D07276A61C523D5A0015A599 /* CPRemindController.m in Sources */ = {isa = PBXBuildFile; fileRef = D07276A51C523D5A0015A599 /* CPRemindController.m */; };
+		D07276CF1C5252FD0015A599 /* UIView+CP.m in Sources */ = {isa = PBXBuildFile; fileRef = D07276CE1C5252FD0015A599 /* UIView+CP.m */; };
+		D07276D21C5254F30015A599 /* PHAudioTool.m in Sources */ = {isa = PBXBuildFile; fileRef = D07276D11C5254F30015A599 /* PHAudioTool.m */; };
 		D088C53B1C4BF650001000C8 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D088C53A1C4BF650001000C8 /* Launch Screen.storyboard */; };
 		D088C53D1C4BF952001000C8 /* Resource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D088C53C1C4BF952001000C8 /* Resource.bundle */; };
 		D088C5491C4BFF1B001000C8 /* cloud_paper_launch.png in Resources */ = {isa = PBXBuildFile; fileRef = D088C5481C4BFF1B001000C8 /* cloud_paper_launch.png */; };
@@ -78,6 +82,13 @@
 		D03ABD7B1C4FF7CD00F32E85 /* NSDate+CP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+CP.m"; sourceTree = "<group>"; };
 		D05079FF1C4BEFF9008D1907 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D0507A001C4BEFF9008D1907 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D07276A21C5239C50015A599 /* Tejat.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Tejat.wav; sourceTree = "<group>"; };
+		D07276A41C523D5A0015A599 /* CPRemindController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPRemindController.h; sourceTree = "<group>"; };
+		D07276A51C523D5A0015A599 /* CPRemindController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPRemindController.m; sourceTree = "<group>"; };
+		D07276CD1C5252FD0015A599 /* UIView+CP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+CP.h"; sourceTree = "<group>"; };
+		D07276CE1C5252FD0015A599 /* UIView+CP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+CP.m"; sourceTree = "<group>"; };
+		D07276D01C5254F30015A599 /* PHAudioTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHAudioTool.h; sourceTree = "<group>"; };
+		D07276D11C5254F30015A599 /* PHAudioTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHAudioTool.m; sourceTree = "<group>"; };
 		D088C53A1C4BF650001000C8 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		D088C53C1C4BF952001000C8 /* Resource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Resource.bundle; sourceTree = "<group>"; };
 		D088C5481C4BFF1B001000C8 /* cloud_paper_launch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cloud_paper_launch.png; sourceTree = "<group>"; };
@@ -225,6 +236,7 @@
 		D05079FE1C4BEFF9008D1907 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D07276A21C5239C50015A599 /* Tejat.wav */,
 				D088C53C1C4BF952001000C8 /* Resource.bundle */,
 				D05079FF1C4BEFF9008D1907 /* Assets.xcassets */,
 				D088C53A1C4BF650001000C8 /* Launch Screen.storyboard */,
@@ -380,6 +392,8 @@
 				D0DB45211C4D051E00B8D52F /* CPNoteEditController.m */,
 				D0B8EB211C4EB0D7003F5CBA /* CPSettingController.h */,
 				D0B8EB221C4EB0D7003F5CBA /* CPSettingController.m */,
+				D07276A41C523D5A0015A599 /* CPRemindController.h */,
+				D07276A51C523D5A0015A599 /* CPRemindController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -449,6 +463,8 @@
 				D0B8EB4D1C4F59F6003F5CBA /* UIImage+Phoenix.m */,
 				D03ABD7A1C4FF7CD00F32E85 /* NSDate+CP.h */,
 				D03ABD7B1C4FF7CD00F32E85 /* NSDate+CP.m */,
+				D07276CD1C5252FD0015A599 /* UIView+CP.h */,
+				D07276CE1C5252FD0015A599 /* UIView+CP.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -465,6 +481,8 @@
 		D0DB45291C4D51CF00B8D52F /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				D07276D01C5254F30015A599 /* PHAudioTool.h */,
+				D07276D11C5254F30015A599 /* PHAudioTool.m */,
 				D0DB452A1C4D51E700B8D52F /* CPNoteManager.h */,
 				D0DB452B1C4D51E700B8D52F /* CPNoteManager.m */,
 			);
@@ -559,6 +577,7 @@
 				D088C53D1C4BF952001000C8 /* Resource.bundle in Resources */,
 				D088C5491C4BFF1B001000C8 /* cloud_paper_launch.png in Resources */,
 				D088C53B1C4BF650001000C8 /* Launch Screen.storyboard in Resources */,
+				D07276A31C5239C50015A599 /* Tejat.wav in Resources */,
 				D0DB45311C4D657E00B8D52F /* ProgressHUD.bundle in Resources */,
 				D0507A031C4BEFF9008D1907 /* Assets.xcassets in Resources */,
 			);
@@ -578,6 +597,7 @@
 				D0B8EB031C4E0B08003F5CBA /* UIView+YYText.m in Sources */,
 				D0B8EAFF1C4E0B08003F5CBA /* YYTextRunDelegate.m in Sources */,
 				D0B8EAF91C4E0B08003F5CBA /* YYTextMagnifier.m in Sources */,
+				D07276A61C523D5A0015A599 /* CPRemindController.m in Sources */,
 				D0B8EAF81C4E0B08003F5CBA /* YYTextLine.m in Sources */,
 				D0DB45091C4C049500B8D52F /* MASViewConstraint.m in Sources */,
 				D0B8EAFB1C4E0B08003F5CBA /* YYTextArchiver.m in Sources */,
@@ -614,6 +634,7 @@
 				D0E32C1F1C509B0500761A07 /* CPSearchBar.m in Sources */,
 				D0DB450D1C4C049500B8D52F /* ViewController+MASAdditions.m in Sources */,
 				D0B8EB4B1C4F540A003F5CBA /* CPNoteCell.m in Sources */,
+				D07276D21C5254F30015A599 /* PHAudioTool.m in Sources */,
 				D0DB45221C4D051E00B8D52F /* CPNoteEditController.m in Sources */,
 				D0DB451D1C4CBF7300B8D52F /* UIBarButtonItem+CP.m in Sources */,
 				D0DB452C1C4D51E700B8D52F /* CPNoteManager.m in Sources */,
@@ -623,6 +644,7 @@
 				D0B8EAF31C4E0B08003F5CBA /* YYTextDebugOption.m in Sources */,
 				D0DB45051C4C049500B8D52F /* MASConstraint.m in Sources */,
 				D03ABD7C1C4FF7CD00F32E85 /* NSDate+CP.m in Sources */,
+				D07276CF1C5252FD0015A599 /* UIView+CP.m in Sources */,
 				D0B8EB091C4E0B08003F5CBA /* YYTextView.m in Sources */,
 				D0B8EAFC1C4E0B08003F5CBA /* YYTextAttribute.m in Sources */,
 				D0B8EB4E1C4F59F6003F5CBA /* UIImage+Phoenix.m in Sources */,
