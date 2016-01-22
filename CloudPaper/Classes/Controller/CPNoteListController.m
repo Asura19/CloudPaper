@@ -40,10 +40,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    
     
     [self setupTableView];
+    
+//    [self createGestureRecognizer];
     [self setupGuideToCreateNoteView];
     [self setupNavigationItems];
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -54,24 +54,62 @@
 
 
 
+
 - (void)setupTableView {
-    //    self.view.backgroundColor = CPColor(244, 244, 244);
     self.tableView.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamedInResourceBundle:@"bg"]];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.contentInset = UIEdgeInsetsMake(0, 0, CPNOTECELL_BORDER, 0);
 //    self.tableView.backgroundColor = CPColor(115, 194, 247);
-    
-    
-    // failed to use Masonry
-//    [searchBar mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(self.tableView.mas_top).offset(5);
-//        make.centerX.equalTo(self.tableView.mas_centerX);
-//        make.width.equalTo(@(SCREEN_WIDTH - 2 * CPNOTECELL_BORDER));
-//        make.height.equalTo(@(30));
-//    }];
-//    [self.tableView addSubview:searchBar];
-//    [[UIApplication sharedApplication].keyWindow.rootViewController.view insertSubview:searchBar atIndex:0];
 }
+
+
+//- (void)createGestureRecognizer {
+//    //创建长按手势监听
+//    UILongPressGestureRecognizer *cellLongPressed = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(TableviewCellLongPressed:)];
+//    
+//    UITapGestureRecognizer *cellDoubleTaped = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(TableviewCellDoubleTaped:)];
+//    
+//    cellDoubleTaped.numberOfTouchesRequired = 1;
+//    
+//    cellDoubleTaped.numberOfTapsRequired = 2;
+//    
+//    cellDoubleTaped.delegate = self;
+//    //将长按手势添加到需要实现长按操作的视图里
+//    [self.tableView addGestureRecognizer:cellLongPressed];
+//    [self.tableView addGestureRecognizer:cellDoubleTaped];
+//}
+
+/**
+ *  长按事件的手势监听实现方法
+ *  长按进入编辑状态
+ */
+//- (void)TableviewCellLongPressed:(UILongPressGestureRecognizer *)gestureRecognizer {
+//    
+//    if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+//        // 取得选中的行
+//        CGPoint point = [gestureRecognizer locationInView:self.tableView];
+//        NSIndexPath * indexPath = [self.tableView indexPathForRowAtPoint:point];
+//        if (indexPath == nil) {
+//            NSLog(@"nil");
+//        }else {
+//            NSLog(@"长按的行号是：%ld",[indexPath row]);
+//        }
+//        
+//        self.tableView.editing = !self.tableView.isEditing;
+//    }
+//}
+
+/**
+ *  单指双击事件的手势监听实现方法
+ *  双击退出编辑状态
+ */
+//- (void)TableviewCellDoubleTaped:(UITapGestureRecognizer*)gestureRecognizer {
+//    if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
+//        if (self.tableView.isEditing) {
+//            self.tableView.editing = NO;
+//        }
+//    }
+//}
 
 - (void)setupNavigationItems {
     // setup navigationbar title
@@ -127,13 +165,14 @@
 
 #pragma mark TableView DataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//    NSLog(@"----");
     if (self.notes.count) {
         self.guideView.hidden = YES;
-        self.searchView.hidden = NO;
+//        self.searchView.hidden = NO;
     } else {
         self.guideView.hidden = NO;
-        self.searchView.hidden = YES;
+//        if (!self.searchBar.isEditing) {
+//            self.searchView.hidden = YES;
+//        }
     }
     return self.notes.count;
 }
@@ -183,38 +222,51 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) { // 提交的是删除操作
-        // 1.删除模型数据
+        
+        [[CPNoteManager sharedManager] deleteNote:self.notes[indexPath.row]];
         [self.notes removeObjectAtIndex:indexPath.row];
 
-        [[CPNoteManager sharedManager] deleteNote:self.notes[indexPath.row]];
-        // 2.刷新表格
         [self.tableView reloadData];
-        
-        // 3.归档
-//        [NSKeyedArchiver archiveRootObject:self.contacts toFile:MJContactsFilepath];
 
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // 1.修改模型数据
-//        MJContact *contact = [[MJContact alloc] init];
-//        contact.name = @"jack";
-//        contact.phone = @"10086";
-//        [self.contacts insertObject:contact atIndex:indexPath.row + 1];
-//        
-//        // 2.刷新表格
-//        NSIndexPath *nextPath = [NSIndexPath indexPathForRow:indexPath.row + 1 inSection:0];
-//        [self.tableView insertRowsAtIndexPaths:@[nextPath] withRowAnimation:UITableViewRowAnimationBottom];
-//        //        [self.tableView reloadData];
     }
 }
 
+
+/**
+ *  @return cell是否可被拖动
+ */
+//- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+//    
+//    if (indexPath.row == 0) // Don't move the first row
+//    {
+//        return NO;
+//    }
+//    return YES;
+//}
+
+/**
+ *  拖动cell调整顺序
+ */
+//- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+//{
+//    NSLog(@"move from:%ld to:%ld", fromIndexPath.row, toIndexPath.row);
+//    // fetch the object at the row being moved
+//    NSString *r = [self.notes objectAtIndex:fromIndexPath.row];
+//    
+//    // remove the original from the data structure
+//    [self.notes removeObjectAtIndex:fromIndexPath.row];
+//    
+//    // insert the object at the target row
+//    [self.notes insertObject:r atIndex:toIndexPath.row];
+//    NSLog(@"result of move :\n%@", [self notes]);
+//}
+
+/**
+ *  TableView滑动时，搜索栏退出键盘
+ */
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     [self.searchBar endEditing:YES];
 }
-
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
-    return YES;//uitableview和子view也响应 no只响应子view uipangesturerecognizer
-}
-
 
 
 #pragma mark TextField Delegate method

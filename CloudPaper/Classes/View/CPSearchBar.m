@@ -27,7 +27,7 @@
 
         self.font = [UIFont systemFontOfSize:14];
         
-//        self.clearButtonMode = UITextFieldViewModeWhileEditing;
+        self.clearButtonMode = UITextFieldViewModeWhileEditing;
         
         NSMutableDictionary *attrs = [NSMutableDictionary dictionary];
         attrs[NSForegroundColorAttributeName] = [UIColor grayColor];

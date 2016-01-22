@@ -28,6 +28,7 @@ CGFloat const kVerticalMargin = 10.f;
     UIBarButtonItem *_addPhotoItem;
     UIBarButtonItem *_deleteItem;
     UIBarButtonItem *_shareItem;
+    UIBarButtonItem *_remindItem;
     NSString *_tempContent;
     int _editTimes;
 }
@@ -88,6 +89,14 @@ CGFloat const kVerticalMargin = 10.f;
                                 highligntedIcon:@"nothing"
                                          target:self
                                          action:@selector(deleteButtonClicked)];
+    
+    _remindItem = [UIBarButtonItem itemWithIcon:@"topbar_button_clock"
+                                highligntedIcon:@"nothing"
+                                         target:self
+                                         action:@selector(setupRemindNotification)];
+    
+//    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:_shareItem, _deleteItem, nil];
+    
 }
 
 - (void)initSuiews
@@ -114,11 +123,11 @@ CGFloat const kVerticalMargin = 10.f;
 }
 
 - (void)turnToEditingState {
-    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:_doneItem, _addPhotoItem, nil];
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:_doneItem, _addPhotoItem, _remindItem, nil];
 }
 
 - (void)turnToLookingUpState {
-    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:_shareItem, _deleteItem, nil];
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:_shareItem, _deleteItem, _remindItem, nil];
 }
 
 - (void)setupAttributedText:(NSString *)string {
@@ -255,7 +264,38 @@ CGFloat const kVerticalMargin = 10.f;
 }
 
 - (void)addPhoto {
+    [self hideKeyboard];
+    NSString *cancelButtonTitle = @"取消";
+    NSString *takePhotoTitle = @"拍摄照片";
+    NSString *choosePhotoTitle = @"选择照片";
+    NSString *drawPictureTitle = @"手绘图片";
     
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"添加图片" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    // Create the actions.
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:cancelButtonTitle style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        NSLog(@"The \"Okay/Cancel\" alert action sheet's cancel action occured.");
+    }];
+    
+    UIAlertAction *takePhotoAction = [UIAlertAction actionWithTitle:takePhotoTitle style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+        NSLog(@"The \"Okay/Cancel\" alert action sheet's destructive action occured.");
+    }];
+    
+    UIAlertAction *choosePhotoAction = [UIAlertAction actionWithTitle:choosePhotoTitle style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+        NSLog(@"The \"Okay/Cancel\" alert action sheet's destructive action occured.");
+    }];
+    
+    UIAlertAction *drawPictureAction = [UIAlertAction actionWithTitle:drawPictureTitle style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+        NSLog(@"The \"Okay/Cancel\" alert action sheet's destructive action occured.");
+    }];
+    
+    [alertController addAction:cancelAction];
+    [alertController addAction:drawPictureAction];
+    [alertController addAction:choosePhotoAction];
+    [alertController addAction:takePhotoAction];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+
 }
 
 - (void)share {
@@ -271,14 +311,11 @@ CGFloat const kVerticalMargin = 10.f;
     }
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
+
+- (void)setupRemindNotification {
+    NSLog(@"remind");
 }
 
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
 
 - (void)textViewDidChange:(YYTextView *)textView {
     // 监听字数
@@ -297,5 +334,15 @@ CGFloat const kVerticalMargin = 10.f;
     
 }
 
+
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 @end
