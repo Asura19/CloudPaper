@@ -15,11 +15,13 @@
 @property (nonatomic, copy) NSString *content;
 @property (nonatomic, strong) NSDate *createdDate;
 @property (nonatomic, strong) NSDate *updatedDate;
+@property (nonatomic, strong) NSDate *remindDate;
 
 - (id)initWithTitle:(NSString *)title
             content:(NSString *)content
         createdDate:(NSDate *)createdDate
-         updateDate:(NSDate *)updatedDate;
+         updateDate:(NSDate *)updatedDate
+         remindDate:(NSDate *)remindDate;
 
 - (BOOL)PersistenceToCreate;
 - (BOOL)PersistenceToUpdate;

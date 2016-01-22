@@ -15,7 +15,7 @@
 
 - (NSMutableArray *)readAllNotes;
 - (NSMutableArray *)searchNoteWithString:(NSString *)string;
-- (CPNote *)readNoteWithID:(NSString *)noteID;
+- (CPNote *)readNoteWithNoteID:(NSString *)noteID;
 - (BOOL)addNote:(CPNote *)note;
 - (BOOL)updateNote:(CPNote *)note;
 - (BOOL)deleteNote:(CPNote *)note;

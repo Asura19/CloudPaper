@@ -11,4 +11,5 @@
 @class CPNote;
 @interface CPNoteEditController : UIViewController
 - (instancetype)initWithNote:(CPNote *)note;
++ (void)saveWhenApplicationWillEnterBackground;
 @end

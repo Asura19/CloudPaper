@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		D02F8B9B1C515F1B0068B93F /* FDActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = D02F8B9A1C515F1B0068B93F /* FDActionSheet.m */; };
 		D03ABD7C1C4FF7CD00F32E85 /* NSDate+CP.m in Sources */ = {isa = PBXBuildFile; fileRef = D03ABD7B1C4FF7CD00F32E85 /* NSDate+CP.m */; };
+		D04218AE1C52C09800B7704A /* CPNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D04218AD1C52C09800B7704A /* CPNotificationManager.m */; };
 		D0507A031C4BEFF9008D1907 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D05079FF1C4BEFF9008D1907 /* Assets.xcassets */; };
 		D07276A31C5239C50015A599 /* Tejat.wav in Resources */ = {isa = PBXBuildFile; fileRef = D07276A21C5239C50015A599 /* Tejat.wav */; };
 		D07276A61C523D5A0015A599 /* CPRemindController.m in Sources */ = {isa = PBXBuildFile; fileRef = D07276A51C523D5A0015A599 /* CPRemindController.m */; };
@@ -48,7 +49,6 @@
 		D0B8EB191C4E6B7C003F5CBA /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B8EB121C4E6B7C003F5CBA /* FMDatabaseQueue.m */; };
 		D0B8EB1A1C4E6B7C003F5CBA /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B8EB151C4E6B7C003F5CBA /* FMResultSet.m */; };
 		D0B8EB1C1C4E6B93003F5CBA /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D0B8EB1B1C4E6B93003F5CBA /* libsqlite3.tbd */; };
-		D0B8EB201C4EAFA4003F5CBA /* CPBaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B8EB1F1C4EAFA4003F5CBA /* CPBaseNavigationController.m */; };
 		D0B8EB231C4EB0D7003F5CBA /* CPSettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B8EB221C4EB0D7003F5CBA /* CPSettingController.m */; };
 		D0B8EB4B1C4F540A003F5CBA /* CPNoteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B8EB4A1C4F540A003F5CBA /* CPNoteCell.m */; };
 		D0B8EB4E1C4F59F6003F5CBA /* UIImage+Phoenix.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B8EB4D1C4F59F6003F5CBA /* UIImage+Phoenix.m */; };
@@ -80,6 +80,8 @@
 		D02F8B9A1C515F1B0068B93F /* FDActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FDActionSheet.m; sourceTree = "<group>"; };
 		D03ABD7A1C4FF7CD00F32E85 /* NSDate+CP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+CP.h"; sourceTree = "<group>"; };
 		D03ABD7B1C4FF7CD00F32E85 /* NSDate+CP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+CP.m"; sourceTree = "<group>"; };
+		D04218AC1C52C09800B7704A /* CPNotificationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPNotificationManager.h; sourceTree = "<group>"; };
+		D04218AD1C52C09800B7704A /* CPNotificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPNotificationManager.m; sourceTree = "<group>"; };
 		D05079FF1C4BEFF9008D1907 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D0507A001C4BEFF9008D1907 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D07276A21C5239C50015A599 /* Tejat.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Tejat.wav; sourceTree = "<group>"; };
@@ -155,8 +157,6 @@
 		D0B8EB141C4E6B7C003F5CBA /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
 		D0B8EB151C4E6B7C003F5CBA /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
 		D0B8EB1B1C4E6B93003F5CBA /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
-		D0B8EB1E1C4EAFA4003F5CBA /* CPBaseNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPBaseNavigationController.h; sourceTree = "<group>"; };
-		D0B8EB1F1C4EAFA4003F5CBA /* CPBaseNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPBaseNavigationController.m; sourceTree = "<group>"; };
 		D0B8EB211C4EB0D7003F5CBA /* CPSettingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPSettingController.h; sourceTree = "<group>"; };
 		D0B8EB221C4EB0D7003F5CBA /* CPSettingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPSettingController.m; sourceTree = "<group>"; };
 		D0B8EB491C4F540A003F5CBA /* CPNoteCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPNoteCell.h; sourceTree = "<group>"; };
@@ -382,18 +382,16 @@
 		D0DB44B91C4C02E500B8D52F /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				D0B8EB1E1C4EAFA4003F5CBA /* CPBaseNavigationController.h */,
-				D0B8EB1F1C4EAFA4003F5CBA /* CPBaseNavigationController.m */,
 				D0DB450E1C4CA7F000B8D52F /* CPNavigationController.h */,
 				D0DB450F1C4CA7F000B8D52F /* CPNavigationController.m */,
 				D0DB44BA1C4C02E500B8D52F /* CPNoteListController.h */,
 				D0DB44BB1C4C02E500B8D52F /* CPNoteListController.m */,
 				D0DB45201C4D051E00B8D52F /* CPNoteEditController.h */,
 				D0DB45211C4D051E00B8D52F /* CPNoteEditController.m */,
-				D0B8EB211C4EB0D7003F5CBA /* CPSettingController.h */,
-				D0B8EB221C4EB0D7003F5CBA /* CPSettingController.m */,
 				D07276A41C523D5A0015A599 /* CPRemindController.h */,
 				D07276A51C523D5A0015A599 /* CPRemindController.m */,
+				D0B8EB211C4EB0D7003F5CBA /* CPSettingController.h */,
+				D0B8EB221C4EB0D7003F5CBA /* CPSettingController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -485,6 +483,8 @@
 				D07276D11C5254F30015A599 /* PHAudioTool.m */,
 				D0DB452A1C4D51E700B8D52F /* CPNoteManager.h */,
 				D0DB452B1C4D51E700B8D52F /* CPNoteManager.m */,
+				D04218AC1C52C09800B7704A /* CPNotificationManager.h */,
+				D04218AD1C52C09800B7704A /* CPNotificationManager.m */,
 			);
 			path = Tool;
 			sourceTree = "<group>";
@@ -605,6 +605,7 @@
 				D0B8EAF41C4E0B08003F5CBA /* YYTextEffectWindow.m in Sources */,
 				D0B8EAF61C4E0B08003F5CBA /* YYTextKeyboardManager.m in Sources */,
 				D0DB45321C4D657E00B8D52F /* ProgressHUD.m in Sources */,
+				D04218AE1C52C09800B7704A /* CPNotificationManager.m in Sources */,
 				D0DB45041C4C049500B8D52F /* MASCompositeConstraint.m in Sources */,
 				D0DB450A1C4C049500B8D52F /* NSArray+MASAdditions.m in Sources */,
 				D0B8EB181C4E6B7C003F5CBA /* FMDatabasePool.m in Sources */,
@@ -614,7 +615,6 @@
 				D0B8EAF51C4E0B08003F5CBA /* YYTextInput.m in Sources */,
 				D0B8EAFD1C4E0B08003F5CBA /* YYTextParser.m in Sources */,
 				D0B8EB001C4E0B08003F5CBA /* NSAttributedString+YYText.m in Sources */,
-				D0B8EB201C4EAFA4003F5CBA /* CPBaseNavigationController.m in Sources */,
 				D0B8EB051C4E0B08003F5CBA /* YYTextTransaction.m in Sources */,
 				D0B8EB231C4EB0D7003F5CBA /* CPSettingController.m in Sources */,
 				D0B8EB011C4E0B08003F5CBA /* NSParagraphStyle+YYText.m in Sources */,

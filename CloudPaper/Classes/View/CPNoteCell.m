@@ -17,8 +17,8 @@
     UIView *_myContentView;
     UIImageView *_selectedBackgroundView;
     UIView *_separatLine;
-    UIButton *_deleteButton;
-    UIButton *_remindButton;
+//    UIButton *_deleteButton;
+//    UIButton *_remindButton;
 }
 @end
 
@@ -99,14 +99,14 @@
     _selectedBackgroundView.image = [UIImage resizedImageNamed:@"cell_background_highlighted_os9"];
     self.selectedBackgroundView = _selectedBackgroundView;
     
-    _deleteButton = [[UIButton alloc] init];
-//    _deleteButton.backgroundColor = [UIColor redColor];
-    [self addSubview:_deleteButton];
-    [self insertSubview:_deleteButton belowSubview:self.backgroundView];
-    _remindButton = [[UIButton alloc] init];
-//    _remindButton.backgroundColor = [UIColor redColor];
-    [self addSubview:_remindButton];
-    [self insertSubview:_remindButton belowSubview:self.backgroundView];
+//    _deleteButton = [[UIButton alloc] init];
+////    _deleteButton.backgroundColor = [UIColor redColor];
+//    [self addSubview:_deleteButton];
+//    [self insertSubview:_deleteButton belowSubview:self.backgroundView];
+//    _remindButton = [[UIButton alloc] init];
+////    _remindButton.backgroundColor = [UIColor redColor];
+//    [self addSubview:_remindButton];
+//    [self insertSubview:_remindButton belowSubview:self.backgroundView];
 
     _myContentView = [UIView new];
     [_myContentView setBackgroundColor:[UIColor whiteColor]];
@@ -123,9 +123,9 @@
     [self.myContentView  addSubview:noteContentLabel];
     self.noteContentLabel = noteContentLabel;
     
-    YYLabel *remindLabel = [[YYLabel alloc] init];
-    [self.myContentView  addSubview:remindLabel];
-    self.remindLabel = remindLabel;
+    UIImageView *remindView = [[UIImageView alloc] init];
+    [self.myContentView  addSubview:remindView];
+    self.remindView = remindView;
     
     UIImageView *photoView = [[UIImageView alloc] init];
     photoView.image = [UIImage imageNamedInResourceBundle:@"icon_photo"];
@@ -143,8 +143,8 @@
     _backgroundView.frame = self.contentView.bounds;
     _selectedBackgroundView.frame = self.contentView.bounds;
     
-    _deleteButton.frame = CGRectMake(0, 0, 30, 30);
-    _remindButton.frame = CGRectMake(350, 0, 30, 30);
+//    _deleteButton.frame = CGRectMake(0, 0, 30, 30);
+//    _remindButton.frame = CGRectMake(350, 0, 30, 30);
 //
     CGFloat timeLabelX = 2 * CPNOTECELL_BORDER;
     CGFloat timeLabelW = 150;
@@ -160,17 +160,17 @@
     _separatLine.backgroundColor = CPColor(226, 226, 226);
     _separatLine.alpha = 0.7;
     
-    CGFloat remindLabelW = 70;
-    CGFloat remindLabelH = timeLabelH;
-    CGFloat remindLabelX = cellWidth - remindLabelW;
-    self.remindLabel.frame = CGRectMake(remindLabelX, 0, remindLabelW, remindLabelH);
-#warning remindLabel
-//    self.remindLabel.text = @"19:00";
+    CGFloat remindViewW = 20;
+    CGFloat remindViewH = remindViewW;
+    CGFloat remindViewX = cellWidth - remindViewW - 9;
+    CGFloat remindViewY = 2;
+    self.remindView.frame = CGRectMake(remindViewX, remindViewY, remindViewW, remindViewH);
+
     
     CGFloat photoViewW = 40;
     CGFloat photoViewH = 28;
     CGFloat photoViewX = cellWidth - photoViewW;
-    CGFloat photoViewY = remindLabelH + 7;
+    CGFloat photoViewY = remindViewH + 15;
     self.photoView.frame = CGRectMake(photoViewX, photoViewY, photoViewW, photoViewH);
     
     CGFloat noteContentLabelY = timeLabelH;
@@ -182,7 +182,7 @@
 
 - (void)setNote:(CPNote *)note {
     _note = note;
-    NSString *content = self.note.content;
+    NSString *content = _note.content;
     if ([content length] > 40) {
         self.noteContentLabel.text = [content substringWithRange:NSMakeRange(0, 40)];
     } else {
@@ -190,5 +190,9 @@
     }
     
     self.timeLabel.text = [NSDate showDate:note.updatedDate];
+    
+    if (_note.remindDate) {
+        self.remindView.image = [UIImage imageNamedInResourceBundle:@"icon_alarm_on"];
+    }
 }
 @end

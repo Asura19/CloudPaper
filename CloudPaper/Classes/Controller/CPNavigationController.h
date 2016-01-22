@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CPBaseNavigationController.h"
 
-@interface CPNavigationController : CPBaseNavigationController
+@interface CPNavigationController : UINavigationController
 
 @end

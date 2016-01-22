@@ -13,13 +13,13 @@
 #import "CPNavigationController.h"
 #import "CPNoteManager.h"
 #import "CPNote.h"
-#import "CPBaseNavigationController.h"
 #import "CPSettingController.h"
 #import "CPNoteCell.h"
 #import "UIImage+Phoenix.h"
 #import "CPGuideToCreateNoteView.h"
 #import "CPSearchBar.h"
 #import "Masonry.h"
+#import "CPNotificationManager.h"
 
 @interface CPNoteListController ()<UITextFieldDelegate>
 
@@ -143,13 +143,14 @@
 }
 
 - (void)createNewNote {
-    CPNoteEditController *noteEditController = [[CPNoteEditController alloc] init];
+    CPNote *note = [[CPNote alloc] init];
+    CPNoteEditController *noteEditController = [[CPNoteEditController alloc] initWithNote:note];
     [self.navigationController pushViewController:noteEditController animated:YES];
 }
 
 - (void)setting {
     CPSettingController *settingController = [[CPSettingController alloc] initWithStyle:UITableViewStyleGrouped];
-    CPBaseNavigationController *nav = [[CPBaseNavigationController alloc] initWithRootViewController:settingController];
+    CPNavigationController *nav = [[CPNavigationController alloc] initWithRootViewController:settingController];
     [self presentViewController:nav animated:YES completion:nil];
 }
 
@@ -180,6 +181,12 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     CPNoteCell *cell = [CPNoteCell cellWithTableView:tableView];
     cell.note = self.notes[indexPath.row];
+    if (cell.note.remindDate) {
+        cell.remindView.hidden = NO;
+    } else {
+        cell.remindView.hidden = YES;
+    }
+    
     return cell;
 }
 
@@ -224,6 +231,8 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) { // 提交的是删除操作
         
         [[CPNoteManager sharedManager] deleteNote:self.notes[indexPath.row]];
+        [[CPNotificationManager sharedManager] deleteLocalNotificationIfExist:self.notes[indexPath.row]];
+        
         [self.notes removeObjectAtIndex:indexPath.row];
 
         [self.tableView reloadData];

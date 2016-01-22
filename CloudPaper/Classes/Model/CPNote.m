@@ -14,6 +14,7 @@
 #define kContentKey     @"Content"
 #define kCreatedDate    @"CreatedDate"
 #define kUpdatedDate    @"UpdatedDate"
+#define kRemindDate    @"RemindDate"
 
 @implementation CPNote
 
@@ -21,6 +22,7 @@
             content:(NSString *)content
         createdDate:(NSDate *)createdDate
          updateDate:(NSDate *)updatedDate
+         remindDate:(NSDate *)remindDate;
 {
     self = [super init];
     if (self) {
@@ -29,6 +31,7 @@
         _content = content;
         _createdDate = createdDate;
         _updatedDate = updatedDate;
+        _remindDate = remindDate;
         if (_title == nil || _title.length == 0) {
             _title = @"无标题";
         }
@@ -45,6 +48,7 @@
     [encoder encodeObject:_content forKey:kContentKey];
     [encoder encodeObject:_createdDate forKey:kCreatedDate];
     [encoder encodeObject:_updatedDate forKey:kUpdatedDate];
+    [encoder encodeObject:_remindDate forKey:kRemindDate];
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
@@ -52,10 +56,12 @@
     NSString *content = [decoder decodeObjectForKey:kContentKey];
     NSDate *createDate = [decoder decodeObjectForKey:kCreatedDate];
     NSDate *updateDate = [decoder decodeObjectForKey:kUpdatedDate];
+    NSDate *remindDate = [decoder decodeObjectForKey:kRemindDate];
     return [self initWithTitle:title
                        content:content
                    createdDate:createDate
-                    updateDate:updateDate];
+                    updateDate:updateDate
+                    remindDate:remindDate];
 }
 
 - (BOOL)PersistenceToCreate {

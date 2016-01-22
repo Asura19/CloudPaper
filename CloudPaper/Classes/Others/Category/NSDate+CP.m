@@ -31,6 +31,31 @@
 }
 
 /**
+ *  显示闹钟提醒时间
+ *  格式为：2016年1月22日 22:25
+ */
++ (NSString *)showRemindDate:(NSDate *)date {
+    // 时间处理
+    NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
+    [fmt setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"zh_CN"]];
+    //    [fmt setDateFormat:@"EEE MMM dd HH:mm:ss Z yyyy"];
+    //星期四 1月 21 01:08:03 +0800 2016
+    [fmt setDateFormat:@"yyyy年MMMdd日 HH:mm EEE"];
+    
+    NSString *dateString;
+    dateString = [fmt stringFromDate:date];
+    
+    if ([date isToday]) {
+        dateString = [dateString stringByReplacingCharactersInRange:NSMakeRange(0, 2) withString:@"今天"];
+    } else if ([date isYesterday]) {
+        dateString = [dateString stringByReplacingCharactersInRange:NSMakeRange(0, 2) withString:@"昨天"];
+    } else {
+        dateString = [dateString stringByReplacingOccurrencesOfString:@"周" withString:@"星期"];
+    }
+    return dateString;
+}
+
+/**
  *  是否为今天
  */
 - (BOOL)isToday

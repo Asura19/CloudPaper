@@ -21,7 +21,7 @@ static FMDatabaseQueue *_queue;
     _queue = [FMDatabaseQueue databaseQueueWithPath:path];
     
     [_queue inDatabase:^(FMDatabase *db) {
-        [db executeUpdate:@"create table if not exists t_notes (id integer primary key autoincrement, noteID text, note_content, note_data blob);"];
+        [db executeUpdate:@"create table if not exists t_notes (id integer primary key autoincrement, noteID text, note_content text, note_remindDate text, note_data blob);"];
     }];
 }
 
@@ -57,6 +57,22 @@ static FMDatabaseQueue *_queue;
     
 }
 
+- (CPNote *)readNoteWithNoteID:(NSString *)noteID {
+    __block CPNote *note = nil;
+    
+    [_queue inDatabase:^(FMDatabase *db) {
+        FMResultSet *rs = nil;
+        rs = [db executeQuery:@"select * from t_notes where noteID is ?", noteID];
+        while (rs.next) {
+            NSData *data = [rs dataForColumn:@"note_data"];
+            note = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+        }
+    }];
+    
+    return note;
+    
+}
+
 - (NSMutableArray *)searchNoteWithString:(NSString *)string
 {
     __block NSMutableArray *noteArray = nil;
@@ -72,7 +88,7 @@ static FMDatabaseQueue *_queue;
 //            NSLog(@"%@", dqlString);
             rs = [db executeQuery:dqlString];
             /**
-             *  注意：此处因FMDB内部问题，不能直接在 executeQuery 中用 ？拼接语句，而应该先进行字符串拼接
+             *  注意：此处可能是因为FMDB内部问题，不能直接在 executeQuery 中用 ？拼接语句，而应该先进行字符串拼接
              */
 //            rs = [db executeQuery:@"select * from t_notes where note_content like \"%%%?%%\"", string];
         }
@@ -98,8 +114,9 @@ static FMDatabaseQueue *_queue;
     [_queue inDatabase:^(FMDatabase *db) {
         NSString *noteID = note.noteID;
         NSString *noteContent = note.content;
+        NSDate *noteRemindDate = note.remindDate;
         NSData *data = [NSKeyedArchiver archivedDataWithRootObject:note];
-        isSuccess = [db executeUpdate:@"insert into t_notes (noteID, note_content, note_data) values(?, ?, ?)", noteID, noteContent, data];
+        isSuccess = [db executeUpdate:@"insert into t_notes (noteID, note_content, note_remindDate, note_data) values(?, ?, ?, ?)", noteID, noteContent, noteRemindDate, data];
     }];
     return isSuccess;
 }
@@ -120,10 +137,14 @@ static FMDatabaseQueue *_queue;
     [_queue inDatabase:^(FMDatabase *db) {
         NSString *noteID = note.noteID;
         NSString *noteContent = note.content;
+        NSDate *noteRemindDate = note.remindDate;
         NSData *data = [NSKeyedArchiver archivedDataWithRootObject:note];
-        isSuccess = [db executeUpdate:@"update t_notes set note_content = ?, note_data = ? where noteID = ?", noteContent, data, noteID];
+        isSuccess = [db executeUpdate:@"update t_notes set note_content = ?, note_remindDate = ?, note_data = ? where noteID = ?", noteContent, noteRemindDate, data, noteID];
     }];
     return isSuccess;
 }
+
+
+
 
 @end

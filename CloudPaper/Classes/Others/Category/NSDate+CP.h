@@ -11,4 +11,5 @@
 @interface NSDate (CP)
 
 + (NSString *)showDate:(NSDate *)date;
++ (NSString *)showRemindDate:(NSDate *)date;
 @end

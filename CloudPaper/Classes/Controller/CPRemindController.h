@@ -8,6 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CPRemindController : UIViewController
+@class CPNote, CPRemindController;
 
+@protocol CPRemindControllerDelegate <NSObject>
+
+
+@optional
+- (void)remindViewController:(CPRemindController *)remindVc didSaveNote:(CPNote *)note;
+
+@end
+@interface CPRemindController : UIViewController
+- (instancetype)initWithNote:(CPNote *)note;
+
+@property (nonatomic, weak) id<CPRemindControllerDelegate> delegate;
 @end

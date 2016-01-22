@@ -15,7 +15,7 @@
 
 @property (nonatomic, weak) YYLabel *timeLabel;
 @property (nonatomic, weak) YYLabel *noteContentLabel;
-@property (nonatomic, weak) YYLabel *remindLabel;
+@property (nonatomic, weak) UIImageView *remindView;
 @property (nonatomic, weak) UIImageView *photoView;
 @property (nonatomic, strong) UIView *myContentView;
 @property (nonatomic, strong) CPNote *note;

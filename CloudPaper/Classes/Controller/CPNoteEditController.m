@@ -16,12 +16,13 @@
 #import "CPNoteManager.h"
 #import "FDActionSheet.h"
 #import "CPRemindController.h"
-#import "CPBaseNavigationController.h"
+#import "CPNavigationController.h"
+#import "CPNotificationManager.h"
 
 CGFloat const kHorizontalMargin = 10.f;
 CGFloat const kVerticalMargin = 10.f;
 
-@interface CPNoteEditController ()<YYTextViewDelegate, FDActionSheetDelegate>
+@interface CPNoteEditController ()<YYTextViewDelegate, FDActionSheetDelegate, CPRemindControllerDelegate>
 {
     CPNote *_note;
     YYTextView *_contentTextView;
@@ -97,8 +98,10 @@ CGFloat const kVerticalMargin = 10.f;
                                          target:self
                                          action:@selector(setupRemindNotification)];
     
-//    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:_shareItem, _deleteItem, nil];
-    
+    self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithIcon:@"barbuttonicon_back"
+                                                     highligntedIcon:@"nothing"
+                                                              target:self
+                                                              action:@selector(back)];
 }
 
 - (void)initSuiews
@@ -113,12 +116,13 @@ CGFloat const kVerticalMargin = 10.f;
     _contentTextView.autocapitalizationType = UITextAutocapitalizationTypeNone;
     [_contentTextView setScrollEnabled:YES];
 
-    if (_note) {
+    if (_note.createdDate) {
         [self setupAttributedText:_note.content];
         [self turnToLookingUpState];
     } else {
         [self setupAttributedText:@""];
         [self turnToEditingState];
+        _remindItem.enabled = NO;
         [_contentTextView becomeFirstResponder];
     }
     [self.view addSubview:_contentTextView];
@@ -144,9 +148,7 @@ CGFloat const kVerticalMargin = 10.f;
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    if (!_saved) {
-        [self save];
-    }
+    
 }
 
 #pragma mark - Keyboard
@@ -191,6 +193,13 @@ CGFloat const kVerticalMargin = 10.f;
     }
 }
 
+- (void)back {
+    if (!_saved) {
+        [self save];
+    }
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 #pragma mark - Save
 
 - (void)save
@@ -209,8 +218,8 @@ CGFloat const kVerticalMargin = 10.f;
     }
     
     NSDate *createDate;
-    if (_note) {
-        
+    if (_note.createdDate) {
+        // 更新便签
         NSDate *updateDate;
         if ([_tempContent isEqualToString:_contentTextView.text] && (_editTimes < 2)) {
             updateDate = _note.updatedDate;
@@ -218,11 +227,19 @@ CGFloat const kVerticalMargin = 10.f;
             updateDate = [NSDate date];
         }
         createDate = _note.createdDate;
+        NSDate *remindDate = _note.remindDate ? _note.remindDate : nil;
         CPNote *note = [[CPNote alloc] initWithTitle:nil
                                              content:string
                                          createdDate:createDate
-                                          updateDate:updateDate];
+                                          updateDate:updateDate
+                                          remindDate:remindDate];
+        
         _note = note;
+        
+        if ([[CPNotificationManager sharedManager] shouldRegistLocalNotifiation:_note]) {
+            [self dealWithLocalNotification];
+        }
+        
         BOOL success = [note PersistenceToUpdate];
         if (success) {
             _saved = YES;
@@ -231,18 +248,95 @@ CGFloat const kVerticalMargin = 10.f;
 //            [ProgressHUD showError:@"SaveFail"];
         }
     } else {
+        // 新建便签
         createDate = [NSDate date];
+        NSDate *remindDate = _note.remindDate ? _note.remindDate : nil;
         CPNote *note = [[CPNote alloc] initWithTitle:nil
                                              content:string
                                          createdDate:createDate
-                                          updateDate:[NSDate date]];
+                                          updateDate:[NSDate date]
+                                          remindDate:remindDate];
         _note = note;
+        
+        if ([[CPNotificationManager sharedManager] shouldRegistLocalNotifiation:_note]) {
+            [self dealWithLocalNotification];
+        }
+        
         BOOL success = [note PersistenceToCreate];
         if (success) {
             _saved = YES;
             [self turnToLookingUpState];
         } else {
 //            [ProgressHUD showError:@"SaveFail"];
+        }
+    }
+}
+
+
+/**
+ *  创建本地通知、修改本地通知 或 删除本地通知
+ */
+- (void)dealWithLocalNotification {
+    [[CPNotificationManager sharedManager] deleteLocalNotificationIfExist:_note];
+    if (_note.remindDate) {
+        [[CPNotificationManager sharedManager] registLocalNotifiation:_note];
+    }
+}
+
+
+/**
+ *  创建本地通知
+ */
+- (void)registLocalNotifiation {
+    // 注册通知
+    UIUserNotificationSettings *notiSettings = [UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeBadge | UIUserNotificationTypeAlert | UIUserNotificationTypeSound) categories:nil];
+    [[UIApplication sharedApplication] registerUserNotificationSettings:notiSettings];
+    
+    
+    UILocalNotification *ln = [[UILocalNotification alloc] init];
+    
+    // 2.设置通知属性
+    // 音效文件名
+    ln.soundName = @"Tejat.wav";
+    
+    // 通知的具体内容 content的前四十个字
+    ln.alertBody = [_note.content length] > 40 ? [_note.content substringWithRange:NSMakeRange(0, 40)] : _note.content;
+    
+    // 锁屏界面显示的小标题（"滑动来" + alertAction）
+    ln.alertAction = @"查看";
+    
+    // 通知第一次发出的时间(5秒后发出)
+    ln.fireDate = _note.remindDate;
+    // 设置时区（跟随手机的时区）
+    ln.timeZone = [NSTimeZone defaultTimeZone];
+    
+    // 设置app图标数字
+    ln.applicationIconBadgeNumber = 5;
+    
+    // 设置通知的额外信息
+    ln.userInfo = @{
+                    @"key" : _note.noteID
+                    };
+    
+    // 设置启动图片
+    ln.alertLaunchImage = @"Default";
+    
+    
+    // 3.调度通知（启动任务）
+    [[UIApplication sharedApplication] scheduleLocalNotification:ln];
+    
+    
+    
+}
+
+- (void)deleteLocalNotificationIfExist {
+    //拿到 存有 所有 推送的数组
+    NSArray * array = [[UIApplication sharedApplication] scheduledLocalNotifications];
+    //便利这个数组 根据 key 拿到我们想要的 UILocalNotification
+    for (UILocalNotification * loc in array) {
+        if ([[loc.userInfo objectForKey:@"key"] isEqualToString:_note.noteID]) {
+            //取消 本地推送
+            [[UIApplication sharedApplication] cancelLocalNotification:loc];
         }
     }
 }
@@ -304,6 +398,7 @@ CGFloat const kVerticalMargin = 10.f;
     
 }
 
+
 - (void)delete {
     BOOL success = [[CPNoteManager sharedManager] deleteNote:_note];
     if (success) {
@@ -316,8 +411,9 @@ CGFloat const kVerticalMargin = 10.f;
 
 - (void)setupRemindNotification {
     
-    CPRemindController *remindController = [[CPRemindController alloc] init];
-    CPBaseNavigationController *nav = [[CPBaseNavigationController alloc] initWithRootViewController:remindController];
+    CPRemindController *remindController = [[CPRemindController alloc] initWithNote:_note];
+    remindController.delegate = self;
+    CPNavigationController *nav = [[CPNavigationController alloc] initWithRootViewController:remindController];
     [self presentViewController:nav animated:YES completion:nil];
     
     
@@ -327,6 +423,11 @@ CGFloat const kVerticalMargin = 10.f;
 - (void)textViewDidChange:(YYTextView *)textView {
     // 监听字数
 //    NSLog(@"%ld", [_contentTextView.text length]);
+    _note.content = _contentTextView.text;
+
+        _remindItem.enabled = [_contentTextView.text isEqualToString:@""] ? NO : YES;
+    
+    
     NSString *count = [NSString stringWithFormat:@"%ld", [_contentTextView.text length]];
     
     UILabel *titleLabel = [[UILabel alloc] init];
@@ -342,6 +443,10 @@ CGFloat const kVerticalMargin = 10.f;
 }
 
 
+- (void)remindViewController:(CPRemindController *)remindVc didSaveNote:(CPNote *)note {
+    _note = note;
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -352,4 +457,8 @@ CGFloat const kVerticalMargin = 10.f;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+
++ (void)saveWhenApplicationWillEnterBackground {
+    [[[self alloc] init] save];
+}
 @end

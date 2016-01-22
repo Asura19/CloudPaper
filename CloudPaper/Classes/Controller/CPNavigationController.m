@@ -8,16 +8,12 @@
 
 #import "CPNavigationController.h"
 #import "CPMacro.h"
-#import "UIBarButtonItem+CP.h"
-
-@interface CPNavigationController ()
-
-@end
 
 @implementation CPNavigationController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.navigationBar setBarTintColor:NAVIGATIONBAR_COLOR];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -25,18 +21,11 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
-{
-    viewController.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithIcon:@"barbuttonicon_back"
-                                                                    highligntedIcon:@"nothing"
-                                                                             target:self
-                                                                             action:@selector(back)];
-    [super pushViewController:viewController animated:animated];
-}
-
-- (void)back
-{
-    [self popViewControllerAnimated:YES];
+/**
+ *  设置状态栏样式
+ */
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
 }
 
 @end
