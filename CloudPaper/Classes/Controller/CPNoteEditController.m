@@ -15,16 +15,16 @@
 #import "UIBarButtonItem+CP.h"
 #import "CPNoteManager.h"
 #import "FDActionSheet.h"
-#import "CPRemindController.h"
 #import "CPNavigationController.h"
 #import "CPNotificationManager.h"
 #import "UIView+CP.h"
 #import "CPNoteListController.h"
+#import "CPRemindActionSheet.h"
 
 CGFloat const kHorizontalMargin = 10.f;
 CGFloat const kVerticalMargin = 10.f;
 
-@interface CPNoteEditController ()<YYTextViewDelegate, FDActionSheetDelegate, CPRemindControllerDelegate, UINavigationControllerDelegate>
+@interface CPNoteEditController ()<YYTextViewDelegate, FDActionSheetDelegate, CPRemindActionSheetDelegate>
 {
     CPNote *_note;
     YYTextView *_contentTextView;
@@ -369,13 +369,11 @@ CGFloat const kVerticalMargin = 10.f;
 
 
 - (void)setupRemindNotification {
-    
-    CPRemindController *remindController = [[CPRemindController alloc] initWithNote:_note];
-    remindController.delegate = self;
-    CPNavigationController *nav = [[CPNavigationController alloc] initWithRootViewController:remindController];
-    [self presentViewController:nav animated:YES completion:nil];
-    
-    
+    [self hideKeyboard];
+    CPRemindActionSheet *remindView = [[CPRemindActionSheet alloc] initWithNote:_note];;
+    remindView.delegate = self;
+    [remindView show];
+ 
 }
 
 
@@ -384,7 +382,7 @@ CGFloat const kVerticalMargin = 10.f;
 //    NSLog(@"%ld", [_contentTextView.text length]);
     _note.content = _contentTextView.text;
 
-        _remindItem.enabled = [_contentTextView.text isEqualToString:@""] ? NO : YES;
+    _remindItem.enabled = [_contentTextView.text isEqualToString:@""] ? NO : YES;
     
     
     NSString *count = [NSString stringWithFormat:@"%ld", [_contentTextView.text length]];
@@ -396,13 +394,12 @@ CGFloat const kVerticalMargin = 10.f;
     CGSize titleLabelSize = [titleLabel.text sizeWithAttributes:@{NSFontAttributeName:NAVIGATIONBAR_COUNT_FONT}];
     titleLabel.frame = (CGRect){{0, 0}, titleLabelSize};
     self.navigationItem.titleView = titleLabel;
-//    self.title = count;
     _editTimes++;
     
 }
 
 
-- (void)remindViewController:(CPRemindController *)remindVc didSaveNote:(CPNote *)note {
+- (void)remindActionSheet:(CPRemindActionSheet *)remindActionSheet didSaveNote:(CPNote *)note {
     _note = note;
 }
 

@@ -36,8 +36,9 @@
 #define CPNOTECELL_BORDER 8
 #define CPNOTECELL_HEIGHT 80
 /**
- *  屏幕宽高
+ *  屏幕尺寸
  */
+#define SCREEN_SIZE ([UIScreen mainScreen].bounds.size)
 #define SCREEN_WIDTH ([UIScreen mainScreen].bounds.size.width)
 #define SCREEN_HEIGHT ([UIScreen mainScreen].bounds.size.height)
 /**

@@ -12,7 +12,6 @@
 		D04218AE1C52C09800B7704A /* CPNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D04218AD1C52C09800B7704A /* CPNotificationManager.m */; };
 		D0507A031C4BEFF9008D1907 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D05079FF1C4BEFF9008D1907 /* Assets.xcassets */; };
 		D07276A31C5239C50015A599 /* Tejat.wav in Resources */ = {isa = PBXBuildFile; fileRef = D07276A21C5239C50015A599 /* Tejat.wav */; };
-		D07276A61C523D5A0015A599 /* CPRemindController.m in Sources */ = {isa = PBXBuildFile; fileRef = D07276A51C523D5A0015A599 /* CPRemindController.m */; };
 		D07276CF1C5252FD0015A599 /* UIView+CP.m in Sources */ = {isa = PBXBuildFile; fileRef = D07276CE1C5252FD0015A599 /* UIView+CP.m */; };
 		D07276D21C5254F30015A599 /* PHAudioTool.m in Sources */ = {isa = PBXBuildFile; fileRef = D07276D11C5254F30015A599 /* PHAudioTool.m */; };
 		D088C53B1C4BF650001000C8 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D088C53A1C4BF650001000C8 /* Launch Screen.storyboard */; };
@@ -52,6 +51,7 @@
 		D0B8EB231C4EB0D7003F5CBA /* CPSettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B8EB221C4EB0D7003F5CBA /* CPSettingController.m */; };
 		D0B8EB4B1C4F540A003F5CBA /* CPNoteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B8EB4A1C4F540A003F5CBA /* CPNoteCell.m */; };
 		D0B8EB4E1C4F59F6003F5CBA /* UIImage+Phoenix.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B8EB4D1C4F59F6003F5CBA /* UIImage+Phoenix.m */; };
+		D0D6D2D31C538CC20099BE2F /* CPRemindActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = D0D6D2D21C538CC20099BE2F /* CPRemindActionSheet.m */; };
 		D0DB44C11C4C02E500B8D52F /* CPNoteListController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0DB44BB1C4C02E500B8D52F /* CPNoteListController.m */; };
 		D0DB44C21C4C02E500B8D52F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D0DB44BE1C4C02E500B8D52F /* AppDelegate.m */; };
 		D0DB44C31C4C02E500B8D52F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D0DB44C01C4C02E500B8D52F /* main.m */; };
@@ -85,8 +85,6 @@
 		D05079FF1C4BEFF9008D1907 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D0507A001C4BEFF9008D1907 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D07276A21C5239C50015A599 /* Tejat.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Tejat.wav; sourceTree = "<group>"; };
-		D07276A41C523D5A0015A599 /* CPRemindController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPRemindController.h; sourceTree = "<group>"; };
-		D07276A51C523D5A0015A599 /* CPRemindController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPRemindController.m; sourceTree = "<group>"; };
 		D07276CD1C5252FD0015A599 /* UIView+CP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+CP.h"; sourceTree = "<group>"; };
 		D07276CE1C5252FD0015A599 /* UIView+CP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+CP.m"; sourceTree = "<group>"; };
 		D07276D01C5254F30015A599 /* PHAudioTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHAudioTool.h; sourceTree = "<group>"; };
@@ -163,6 +161,8 @@
 		D0B8EB4A1C4F540A003F5CBA /* CPNoteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPNoteCell.m; sourceTree = "<group>"; };
 		D0B8EB4C1C4F59F6003F5CBA /* UIImage+Phoenix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Phoenix.h"; sourceTree = "<group>"; };
 		D0B8EB4D1C4F59F6003F5CBA /* UIImage+Phoenix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Phoenix.m"; sourceTree = "<group>"; };
+		D0D6D2D11C538CC20099BE2F /* CPRemindActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPRemindActionSheet.h; sourceTree = "<group>"; };
+		D0D6D2D21C538CC20099BE2F /* CPRemindActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPRemindActionSheet.m; sourceTree = "<group>"; };
 		D0DB44BA1C4C02E500B8D52F /* CPNoteListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPNoteListController.h; sourceTree = "<group>"; };
 		D0DB44BB1C4C02E500B8D52F /* CPNoteListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPNoteListController.m; sourceTree = "<group>"; };
 		D0DB44BD1C4C02E500B8D52F /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -363,6 +363,8 @@
 				D0B8E63A1C4FBE01009FD3E0 /* CPGuideToCreateNoteView.m */,
 				D0E32C1D1C509B0500761A07 /* CPSearchBar.h */,
 				D0E32C1E1C509B0500761A07 /* CPSearchBar.m */,
+				D0D6D2D11C538CC20099BE2F /* CPRemindActionSheet.h */,
+				D0D6D2D21C538CC20099BE2F /* CPRemindActionSheet.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -388,8 +390,6 @@
 				D0DB44BB1C4C02E500B8D52F /* CPNoteListController.m */,
 				D0DB45201C4D051E00B8D52F /* CPNoteEditController.h */,
 				D0DB45211C4D051E00B8D52F /* CPNoteEditController.m */,
-				D07276A41C523D5A0015A599 /* CPRemindController.h */,
-				D07276A51C523D5A0015A599 /* CPRemindController.m */,
 				D0B8EB211C4EB0D7003F5CBA /* CPSettingController.h */,
 				D0B8EB221C4EB0D7003F5CBA /* CPSettingController.m */,
 			);
@@ -591,13 +591,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0DB450B1C4C049500B8D52F /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
+				D0D6D2D31C538CC20099BE2F /* CPRemindActionSheet.m in Sources */,
 				D0B8EB071C4E0B08003F5CBA /* YYTextWeakProxy.m in Sources */,
 				D0B8EB041C4E0B08003F5CBA /* YYTextAsyncLayer.m in Sources */,
 				D0B8EB161C4E6B7C003F5CBA /* FMDatabase.m in Sources */,
 				D0B8EB031C4E0B08003F5CBA /* UIView+YYText.m in Sources */,
 				D0B8EAFF1C4E0B08003F5CBA /* YYTextRunDelegate.m in Sources */,
 				D0B8EAF91C4E0B08003F5CBA /* YYTextMagnifier.m in Sources */,
-				D07276A61C523D5A0015A599 /* CPRemindController.m in Sources */,
 				D0B8EAF81C4E0B08003F5CBA /* YYTextLine.m in Sources */,
 				D0DB45091C4C049500B8D52F /* MASViewConstraint.m in Sources */,
 				D0B8EAFB1C4E0B08003F5CBA /* YYTextArchiver.m in Sources */,
