@@ -85,7 +85,16 @@
     _remindDateLabel = [[UILabel alloc] init];
     _remindDateLabel.font = [UIFont systemFontOfSize:19];
     _remindDateLabel.textAlignment = NSTextAlignmentCenter;
-    _remindDateLabel.text = _note.remindDate ? [NSDate showRemindDate:_note.remindDate] : @"滑动添加提醒时间";
+    
+    
+    if (!_note.remindDate) {
+        _remindDateLabel.text = @"滑动添加提醒时间";
+    } else if ([_note.remindDate timeIntervalSinceNow] < 0) {
+        _remindDateLabel.text = @"闹钟提醒已过期";
+    } else {
+        _remindDateLabel.text = [NSDate showRemindDate:_note.remindDate];
+    }
+    
     _remindDateLabel.textColor = [UIColor blackColor];
     [self.view addSubview:_remindDateLabel];
     

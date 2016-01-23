@@ -162,7 +162,7 @@
     
     CGFloat remindViewW = 20;
     CGFloat remindViewH = remindViewW;
-    CGFloat remindViewX = cellWidth - remindViewW - 9;
+    CGFloat remindViewX = cellWidth - remindViewW - 10;
     CGFloat remindViewY = 2;
     self.remindView.frame = CGRectMake(remindViewX, remindViewY, remindViewW, remindViewH);
 
@@ -192,7 +192,7 @@
     self.timeLabel.text = [NSDate showDate:note.updatedDate];
     
     if (_note.remindDate) {
-        self.remindView.image = [UIImage imageNamedInResourceBundle:@"icon_alarm_on"];
+        self.remindView.image = [UIImage imageNamedInResourceBundle:@"clock"];
     }
 }
 @end

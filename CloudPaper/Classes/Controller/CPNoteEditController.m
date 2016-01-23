@@ -18,11 +18,13 @@
 #import "CPRemindController.h"
 #import "CPNavigationController.h"
 #import "CPNotificationManager.h"
+#import "UIView+CP.h"
+#import "CPNoteListController.h"
 
 CGFloat const kHorizontalMargin = 10.f;
 CGFloat const kVerticalMargin = 10.f;
 
-@interface CPNoteEditController ()<YYTextViewDelegate, FDActionSheetDelegate, CPRemindControllerDelegate>
+@interface CPNoteEditController ()<YYTextViewDelegate, FDActionSheetDelegate, CPRemindControllerDelegate, UINavigationControllerDelegate>
 {
     CPNote *_note;
     YYTextView *_contentTextView;
@@ -68,6 +70,8 @@ CGFloat const kVerticalMargin = 10.f;
                                              selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(save) name:SaveNoteWhenApplicationEnterBackground object:nil];
 }
 
 - (void)ceateNavigationBarItem
@@ -284,51 +288,6 @@ CGFloat const kVerticalMargin = 10.f;
 }
 
 
-/**
- *  创建本地通知
- */
-- (void)registLocalNotifiation {
-    // 注册通知
-    UIUserNotificationSettings *notiSettings = [UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeBadge | UIUserNotificationTypeAlert | UIUserNotificationTypeSound) categories:nil];
-    [[UIApplication sharedApplication] registerUserNotificationSettings:notiSettings];
-    
-    
-    UILocalNotification *ln = [[UILocalNotification alloc] init];
-    
-    // 2.设置通知属性
-    // 音效文件名
-    ln.soundName = @"Tejat.wav";
-    
-    // 通知的具体内容 content的前四十个字
-    ln.alertBody = [_note.content length] > 40 ? [_note.content substringWithRange:NSMakeRange(0, 40)] : _note.content;
-    
-    // 锁屏界面显示的小标题（"滑动来" + alertAction）
-    ln.alertAction = @"查看";
-    
-    // 通知第一次发出的时间(5秒后发出)
-    ln.fireDate = _note.remindDate;
-    // 设置时区（跟随手机的时区）
-    ln.timeZone = [NSTimeZone defaultTimeZone];
-    
-    // 设置app图标数字
-    ln.applicationIconBadgeNumber = 5;
-    
-    // 设置通知的额外信息
-    ln.userInfo = @{
-                    @"key" : _note.noteID
-                    };
-    
-    // 设置启动图片
-    ln.alertLaunchImage = @"Default";
-    
-    
-    // 3.调度通知（启动任务）
-    [[UIApplication sharedApplication] scheduleLocalNotification:ln];
-    
-    
-    
-}
-
 - (void)deleteLocalNotificationIfExist {
     //拿到 存有 所有 推送的数组
     NSArray * array = [[UIApplication sharedApplication] scheduledLocalNotifications];
@@ -457,8 +416,8 @@ CGFloat const kVerticalMargin = 10.f;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-
-+ (void)saveWhenApplicationWillEnterBackground {
-    [[[self alloc] init] save];
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    
 }
+
 @end

@@ -45,3 +45,5 @@
  */
 #define NAVIGATIONBAR_COUNT_FONT_SIZE 16
 #define NAVIGATIONBAR_COUNT_FONT [UIFont systemFontOfSize:16]
+
+#define SaveNoteWhenApplicationEnterBackground @"SaveNoteWhenApplicationEnterBackground" 

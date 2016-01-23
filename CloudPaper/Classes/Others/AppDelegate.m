@@ -12,6 +12,10 @@
 #import "UIView+CP.h"
 #import "PHAudioTool.h"
 #import "CPNoteEditController.h"
+#import "CPMacro.h"
+#import "CPNoteManager.h"
+#import "CPNotificationManager.h"
+#import "CPNote.h"
 
 @interface AppDelegate ()
 
@@ -26,45 +30,79 @@
     CPNavigationController *nav = [[CPNavigationController alloc] initWithRootViewController:mainViewController];
     self.window.rootViewController = nav;
     [self.window makeKeyAndVisible];
+    
+    UILocalNotification *noti = launchOptions[UIApplicationLaunchOptionsLocalNotificationKey];
+    if (noti) {
+        NSString * noteID = [noti.userInfo objectForKey:@"key"];
+        CPNote *note = [[CPNoteManager sharedManager] readNoteWithNoteID:noteID];
+        CPNoteEditController *detailedVc = [[CPNoteEditController alloc] initWithNote:note];
+        [nav pushViewController:detailedVc animated:YES];
+    } 
+  
+    
     return YES;
 }
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
     NSLog(@"前台时的本地通知在此设置");
+    NSLog(@"%@", notification.alertBody);
     
     
-//    NSString *cancelButtonTitle = @"取消";
-//    NSString *takePhotoTitle = @"拍摄照片";
-//    NSString *choosePhotoTitle = @"选择照片";
-//    NSString *drawPictureTitle = @"手绘图片";
-//    
-//    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"添加图片" message:nil preferredStyle:UIAlertControllerStyleAlert];
-//    
-//    // Create the actions.
-//    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:cancelButtonTitle style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-//        NSLog(@"The \"Okay/Cancel\" alert action sheet's cancel action occured.");
-//    }];
-//    
-//    UIAlertAction *takePhotoAction = [UIAlertAction actionWithTitle:takePhotoTitle style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
-//        NSLog(@"The \"Okay/Cancel\" alert action sheet's destructive action occured.");
-//    }];
-//    
-//    UIAlertAction *choosePhotoAction = [UIAlertAction actionWithTitle:choosePhotoTitle style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
-//        NSLog(@"The \"Okay/Cancel\" alert action sheet's destructive action occured.");
-//    }];
-//    
-//    UIAlertAction *drawPictureAction = [UIAlertAction actionWithTitle:drawPictureTitle style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
-//        NSLog(@"The \"Okay/Cancel\" alert action sheet's destructive action occured.");
-//    }];
-//    
-//    [alertController addAction:cancelAction];
-//    [alertController addAction:drawPictureAction];
-//    [alertController addAction:choosePhotoAction];
-//    [alertController addAction:takePhotoAction];
-//    
-////    [[[UIApplication sharedApplication].keyWindow.rootViewController.childViewControllers lastObject] presentViewController:alertController animated:YES completion:nil];
-//    [[UIView currentViewController] presentViewController:alertController animated:YES completion:nil];
-//    [PHAudioTool playSound:@"Tejat.wav"];
+    NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];
+    
+    //  设置Locale，星期几会以中文显示
+    dateFormat.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"zh_CN"];
+    
+    // 设定时间格式(后面跟 a,默认为中文)
+    [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSString *dateString = [dateFormat stringFromDate:notification.fireDate];
+    
+    NSLog(@"%@", dateString);
+    
+    if ([notification.fireDate timeIntervalSinceNow] > - 0.5) {
+    
+        NSString *content = notification.alertBody;
+        NSString *remindLater = @"稍后提醒";
+        NSString *cancel = @"朕知道了";
+        
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提醒" message:nil preferredStyle:UIAlertControllerStyleAlert];
+        
+        // Create the actions.
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:cancel style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+            
+        }];
+        
+        // 10分钟后提醒
+        UIAlertAction *remindLaterAction = [UIAlertAction actionWithTitle:remindLater style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+            // 创建本地通知、修改本地通知 或 删除本地通知
+            NSString *noteID = [notification.userInfo objectForKey:@"key"];
+            CPNote * note = [[CPNoteManager sharedManager] readNoteWithNoteID:noteID];
+            
+            // 删除旧通知，并重新注册新通知
+            [[CPNotificationManager sharedManager] deleteLocalNotificationIfExist:note];
+            note.remindDate = [note.remindDate dateByAddingTimeInterval:6];
+            [[CPNotificationManager sharedManager] registLocalNotifiation:note];
+            
+            // 保存到本地
+            [[CPNoteManager sharedManager] updateNote:note];
+        }];
+        
+        UIAlertAction *contentAction = [UIAlertAction actionWithTitle:content style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+            NSString * noteID = [notification.userInfo objectForKey:@"key"];
+            CPNote *note = [[CPNoteManager sharedManager] readNoteWithNoteID:noteID];
+            CPNoteEditController *detailedVc = [[CPNoteEditController alloc] initWithNote:note];
+            CPNoteListController *mainViewController = [self.window.rootViewController.childViewControllers firstObject];
+            [mainViewController.navigationController pushViewController:detailedVc animated:YES];
+            
+        }];
+        
+        [alertController addAction:contentAction];
+        [alertController addAction:remindLaterAction];
+        [alertController addAction:cancelAction];
+        [[UIView currentViewController] presentViewController:alertController animated:YES completion:nil];
+    
+        [PHAudioTool playSound:@"Tejat.wav"];
+    }
 
 }
 
@@ -75,14 +113,14 @@
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-    
+    if ([[UIView currentViewController] isKindOfClass:[CPNoteEditController class]]) {
+        NSLog(@"background");
+        [[NSNotificationCenter defaultCenter] postNotificationName:SaveNoteWhenApplicationEnterBackground object:nil];
+    }
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
-    if ([[UIView currentViewController] isKindOfClass:[CPNoteEditController class]]) {
-        NSLog(@"background");
-        [CPNoteEditController saveWhenApplicationWillEnterBackground];
-    }
+    
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {

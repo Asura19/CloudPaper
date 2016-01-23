@@ -30,7 +30,8 @@
         return NO;
     } else {
         CPNote *diskNote = [[CPNoteManager sharedManager] readNoteWithNoteID:note.noteID];
-        if (note.remindDate == diskNote.remindDate) {
+        // 如果提醒时间或者文本内容改了，都需要删除旧通知，重新发送通知
+        if ((note.remindDate == diskNote.remindDate) && [note.content isEqualToString:diskNote.content]) {
             return NO;
         } else {
             return YES;
@@ -45,53 +46,50 @@
     // 注册通知
     UIUserNotificationSettings *notiSettings = [UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeBadge | UIUserNotificationTypeAlert | UIUserNotificationTypeSound) categories:nil];
     [[UIApplication sharedApplication] registerUserNotificationSettings:notiSettings];
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     
-    
-    UILocalNotification *ln = [[UILocalNotification alloc] init];
+    UILocalNotification *noti = [[UILocalNotification alloc] init];
     
     // 2.设置通知属性
     // 音效文件名
-    ln.soundName = @"Tejat.wav";
+    noti.soundName = @"Tejat.wav";
     
     // 通知的具体内容 content的前四十个字
-    ln.alertBody = [note.content length] > 40 ? [note.content substringWithRange:NSMakeRange(0, 40)] : note.content;
+    noti.alertBody = [note.content length] > 40 ? [note.content substringWithRange:NSMakeRange(0, 40)] : note.content;
     
     // 锁屏界面显示的小标题（"滑动来" + alertAction）
-    ln.alertAction = @"查看";
+    noti.alertAction = @"查看";
     
-    // 通知第一次发出的时间(5秒后发出)
-    ln.fireDate = note.remindDate;
+    // 通知第一次发出的时间
+    noti.fireDate = note.remindDate;
     // 设置时区（跟随手机的时区）
-    ln.timeZone = [NSTimeZone defaultTimeZone];
-    
-    // 设置app图标数字
-    ln.applicationIconBadgeNumber = 5;
+    noti.timeZone = [NSTimeZone defaultTimeZone];
+
     
     // 设置通知的额外信息
-    ln.userInfo = @{
+    noti.userInfo = @{
                     @"key" : note.noteID
                     };
     
     // 设置启动图片
-    ln.alertLaunchImage = @"Default";
+    noti.alertLaunchImage = @"Default";
     
     
     // 3.调度通知（启动任务）
-    [[UIApplication sharedApplication] scheduleLocalNotification:ln];
-    
-    
-    
+    [[UIApplication sharedApplication] scheduleLocalNotification:noti];
+ 
 }
 
 - (void)deleteLocalNotificationIfExist:(CPNote *)note {
     //拿到 存有 所有 推送的数组
     NSArray * array = [[UIApplication sharedApplication] scheduledLocalNotifications];
     //便利这个数组 根据 key 拿到我们想要的 UILocalNotification
-    for (UILocalNotification * loc in array) {
-        if ([[loc.userInfo objectForKey:@"key"] isEqualToString:note.noteID]) {
+    for (UILocalNotification * noti in array) {
+        if ([[noti.userInfo objectForKey:@"key"] isEqualToString:note.noteID]) {
             //取消 本地推送
-            [[UIApplication sharedApplication] cancelLocalNotification:loc];
+            [[UIApplication sharedApplication] cancelLocalNotification:noti];
         }
     }
 }
+
 @end

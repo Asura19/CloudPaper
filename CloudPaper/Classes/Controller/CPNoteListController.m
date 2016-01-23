@@ -41,6 +41,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+
+    
     [self setupTableView];
     
 //    [self createGestureRecognizer];
@@ -51,8 +53,6 @@
                                                  name:UITextFieldTextDidChangeNotification
                                                object:nil];
 }
-
-
 
 
 - (void)setupTableView {
@@ -159,10 +159,20 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    _notes = [[CPNoteManager sharedManager] readAllNotes];
+    [super viewWillAppear:YES];
     
+    _notes = [[CPNoteManager sharedManager] readAllNotes];
+    // 提醒过期处理
+    for (CPNote *note in _notes) {
+        if ([note.remindDate timeIntervalSinceNow] < 0) {
+            note.remindDate = nil;
+            [[CPNoteManager sharedManager] updateNote:note];
+        }
+    }
+    _notes = [[CPNoteManager sharedManager] readAllNotes];
     [self.tableView reloadData];
 }
+
 
 #pragma mark TableView DataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -289,5 +299,7 @@
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+
+
 
 @end
