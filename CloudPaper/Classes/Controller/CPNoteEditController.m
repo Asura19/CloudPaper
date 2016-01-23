@@ -152,7 +152,9 @@ CGFloat const kVerticalMargin = 10.f;
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
+    if (!_saved) {
+        [self save];
+    }
 }
 
 #pragma mark - Keyboard
