@@ -10,7 +10,23 @@
 #import "CPMacro.h"
 #import "UIBarButtonItem+CP.h"
 
+@interface CPSettingController ()
+@property (nonatomic, strong) NSMutableArray *settingItems;
+@end
+
 @implementation CPSettingController
+
+- (NSMutableArray *)settingItems {
+    if (!_settingItems) {
+        NSString *one = @"同步云端便签";
+        NSString *two = @"启用Markdown模式";
+        NSString *three = @"便签回收站";
+        NSString *four = @"Touch ID 和密码";
+        NSString *five = @"意见和建议";
+        _settingItems = [NSMutableArray arrayWithObjects:one, two, three, four, five, nil];
+    }
+    return _settingItems;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -36,4 +52,28 @@
 - (void)close {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.settingItems.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *ID = @"ID";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
+    }
+    cell.textLabel.text = self.settingItems[indexPath.row];
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
 @end
