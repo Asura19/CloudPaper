@@ -117,6 +117,7 @@ CGFloat const kVerticalMargin = 10.f;
     _contentTextView.delegate = self;
     _contentTextView.textColor = [UIColor blackColor];
     _contentTextView.dataDetectorTypes = UIDataDetectorTypeAll;
+    
     _contentTextView.autocorrectionType = UITextAutocorrectionTypeNo;
     _contentTextView.autocapitalizationType = UITextAutocapitalizationTypeNone;
     [_contentTextView setScrollEnabled:YES];
@@ -445,8 +446,16 @@ CGFloat const kVerticalMargin = 10.f;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+- (void)textView:(YYTextView *)textView didTapHighlight:(YYTextHighlight *)highlight inRange:(NSRange)characterRange rect:(CGRect)rect {
+    NSLog(@"%@",_contentTextView.text);
+    NSString *string = [_contentTextView.text substringWithRange:characterRange];
+    NSLog(@"%@", string);
+    
+    
+    NSURL *url = [NSURL URLWithString:string];
     
 }
+
+
 
 @end
