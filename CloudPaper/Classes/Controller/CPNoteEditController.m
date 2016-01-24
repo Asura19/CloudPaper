@@ -335,15 +335,15 @@ CGFloat const kVerticalMargin = 10.f;
     }];
     
     UIAlertAction *takePhotoAction = [UIAlertAction actionWithTitle:takePhotoTitle style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
-        NSLog(@"The \"Okay/Cancel\" alert action sheet's destructive action occured.");
+        NSLog(@"The \"takePhotoAction\" alert action sheet's destructive action occured.");
     }];
     
     UIAlertAction *choosePhotoAction = [UIAlertAction actionWithTitle:choosePhotoTitle style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
-        NSLog(@"The \"Okay/Cancel\" alert action sheet's destructive action occured.");
+        NSLog(@"The \"choosePhotoAction\" alert action sheet's destructive action occured.");
     }];
     
     UIAlertAction *drawPictureAction = [UIAlertAction actionWithTitle:drawPictureTitle style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
-        NSLog(@"The \"Okay/Cancel\" alert action sheet's destructive action occured.");
+        NSLog(@"The \"drawPictureAction\" alert action sheet's destructive action occured.");
     }];
     
     [alertController addAction:cancelAction];
@@ -356,7 +356,36 @@ CGFloat const kVerticalMargin = 10.f;
 }
 
 - (void)share {
+    NSString *cancelButtonTitle = @"取消";
+    NSString *wechatTitle = @"微信";
+    NSString *weiboTitle = @"微博";
+    NSString *mailTitle = @"邮件";
     
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"分享便签" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    // Create the actions.
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:cancelButtonTitle style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        NSLog(@"The \"Okay/Cancel\" alert action sheet's cancel action occured.");
+    }];
+    
+    UIAlertAction *wechatAction = [UIAlertAction actionWithTitle:wechatTitle style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+        NSLog(@"The \"wechatAction\" alert action sheet's destructive action occured.");
+    }];
+    
+    UIAlertAction *weiboTitleAction = [UIAlertAction actionWithTitle:weiboTitle style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+        NSLog(@"The \"weiboTitleAction\" alert action sheet's destructive action occured.");
+    }];
+    
+    UIAlertAction *mailAction = [UIAlertAction actionWithTitle:mailTitle style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+        NSLog(@"The \"mailAction\" alert action sheet's destructive action occured.");
+    }];
+    
+    [alertController addAction:cancelAction];
+    [alertController addAction:mailAction];
+    [alertController addAction:weiboTitleAction];
+    [alertController addAction:wechatAction];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 
