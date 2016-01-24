@@ -80,7 +80,7 @@
             
             // 删除旧通知，并重新注册新通知
             [[CPNotificationManager sharedManager] deleteLocalNotificationIfExist:note];
-            note.remindDate = [note.remindDate dateByAddingTimeInterval:6];
+            note.remindDate = [note.remindDate dateByAddingTimeInterval:600];
             [[CPNotificationManager sharedManager] registLocalNotifiation:note];
             
             // 保存到本地

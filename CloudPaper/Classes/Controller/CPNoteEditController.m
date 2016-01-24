@@ -116,6 +116,7 @@ CGFloat const kVerticalMargin = 10.f;
     _contentTextView.textContainerInset = UIEdgeInsetsMake(10, 14, 10, 10);
     _contentTextView.delegate = self;
     _contentTextView.textColor = [UIColor blackColor];
+    _contentTextView.dataDetectorTypes = UIDataDetectorTypeAll;
     _contentTextView.autocorrectionType = UITextAutocorrectionTypeNo;
     _contentTextView.autocapitalizationType = UITextAutocapitalizationTypeNone;
     [_contentTextView setScrollEnabled:YES];
