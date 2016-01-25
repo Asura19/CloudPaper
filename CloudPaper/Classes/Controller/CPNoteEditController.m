@@ -59,7 +59,7 @@ CGFloat const kVerticalMargin = 10.f;
     // 右划返回
     self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
     [self ceateNavigationBarItem];
-    [self initSuiews];
+    [self initSubviews];
     // 监听键盘状态
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
@@ -108,7 +108,7 @@ CGFloat const kVerticalMargin = 10.f;
                                                               action:@selector(back)];
 }
 
-- (void)initSuiews
+- (void)initSubviews
 {
     CGRect frame = self.view.bounds;
     _contentTextView = [[YYTextView alloc] initWithFrame:frame];
