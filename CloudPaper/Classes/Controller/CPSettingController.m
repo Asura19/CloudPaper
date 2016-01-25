@@ -9,6 +9,7 @@
 #import "CPSettingController.h"
 #import "CPMacro.h"
 #import "UIBarButtonItem+CP.h"
+#import "ProgressHUD.h"
 
 @interface CPSettingController ()
 @property (nonatomic, strong) NSMutableArray *settingItems;
@@ -74,6 +75,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [ProgressHUD showError:@"Coming Soon..."];
 }
 
 @end

@@ -44,7 +44,7 @@
 }
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
-    NSLog(@"前台时的本地通知在此设置");
+    // 前台时的本地通知在此设置
     NSLog(@"%@", notification.alertBody);
     
     
